@@ -305,6 +305,13 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:80px 48px
 .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:40px;border-top:1px solid var(--border);font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;color:var(--dim)}
 .trn{background:var(--glass);border:1px solid var(--border);padding:4px 12px}
 
+
+/* ─── VISITOR COUNTER ─── */
+.visitor-counter{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);opacity:.5;transition:opacity .3s}
+.visitor-counter:hover{opacity:.9}
+.visitor-dot{width:4px;height:4px;background:var(--teal);border-radius:50%;animation:blink 2s infinite}
+.visitor-count{color:var(--teal)}
+
 /* ─── WA FAB ─── */
 .wa-fab{position:fixed;bottom:32px;right:32px;z-index:150;width:52px;height:52px;background:var(--bg2);border:1px solid rgba(0,196,167,.35);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--teal);box-shadow:0 0 0 0 rgba(0,196,167,.2);animation:waPulse 3s ease-in-out infinite;transition:transform .2s,border-color .2s}
 .wa-fab:hover{transform:scale(1.08);border-color:var(--teal);background:rgba(0,196,167,.08)}
@@ -344,7 +351,26 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:80px 48px
   .certs-grid{grid-template-columns:1fr}
 }
 </style>
-<script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
+<script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript">
+/* ─── VISITOR COUNTER ─── */
+(function() {
+  const key = 'eco-environmental-uae-v1';
+  const ns  = 'eco-env-uae';
+  fetch('https://api.counterapi.dev/v1/' + ns + '/' + key + '/up')
+    .then(r => r.json())
+    .then(data => {
+      const el = document.getElementById('visitorCount');
+      if (el && data && data.count !== undefined) {
+        el.textContent = Number(data.count).toLocaleString();
+      }
+    })
+    .catch(() => {
+      const el = document.getElementById('visitorCount');
+      if (el) el.textContent = '—';
+    });
+})();
+
+</script>
 <style>
 /* ─── MOBILE FIXES ─── */
 @media(max-width:480px){
@@ -906,8 +932,15 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:80px 48px
     </div>
   </div>
   <div class="footer-bottom reveal">
-    <span>© 2024 ECO Environmental Protection Services LLC. All rights reserved.</span>
-    <span class="trn">TRN: 100619240300003</span>
+    <span>© 2026 ECO Environmental Protection Services LLC. All rights reserved.</span>
+    <div style="display:flex;align-items:center;gap:20px">
+      <div class="visitor-counter" title="Total site visitors">
+        <span class="visitor-dot"></span>
+        <span>Visitors</span>
+        <span class="visitor-count" id="visitorCount">—</span>
+      </div>
+      <span class="trn">TRN: 100619240300003</span>
+    </div>
   </div>
 </footer>
 
