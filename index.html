@@ -3,65 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-11097082238">
-/* ─── BILINGUAL TOGGLE ─── */
-const translations = {
-  en: {
-    'hero-label': 'Protecting UAE Waters Since 2016',
-    'hero-title-html': 'Environmental<br>Protection.<br><em>Elevated.</em>',
-    'nav-logo-text': 'ECO Environmental',
-    'lang-btn': 'AR',
-    'about-tag': 'Who We Are',
-    'about-heading-html': 'Government-Level<br><em style="color:var(--teal)">Environmental Partner.</em>',
-    'b2b-tag': 'Institutional & Corporate',
-    'b2b-heading-html': 'Built for Facilities<br><em style="color:var(--teal)">That Cannot Fail.</em>',
-  },
-  ar: {
-    'hero-label': 'نحمي مياه الإمارات منذ 2016',
-    'hero-title-html': 'حماية البيئة.<br><em>على أعلى مستوى.</em>',
-    'nav-logo-text': 'إيكو للبيئة',
-    'lang-btn': 'EN',
-    'about-tag': 'من نحن',
-    'about-heading-html': 'شريك بيئي<br><em style="color:var(--teal)">على المستوى الحكومي.</em>',
-    'b2b-tag': 'المؤسسات والشركات',
-    'b2b-heading-html': 'حلول للمنشآت<br><em style="color:var(--teal)">التي لا تقبل التوقف.</em>',
-  }
-};
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-11097082238"></script>
 
-let currentLang = 'en';
-
-function toggleLang() {
-  currentLang = currentLang === 'en' ? 'ar' : 'en';
-  const isAr = currentLang === 'ar';
-  document.documentElement.setAttribute('dir', isAr ? 'rtl' : 'ltr');
-  document.documentElement.setAttribute('lang', currentLang);
-  document.getElementById('langBtn').textContent = isAr ? 'EN' : 'AR';
-
-  const t = translations[currentLang];
-
-  const heroLabel = document.querySelector('.hero-label');
-  if (heroLabel) heroLabel.textContent = t['hero-label'];
-
-  const heroTitle = document.querySelector('.hero-title');
-  if (heroTitle) heroTitle.innerHTML = t['hero-title-html'];
-
-  const aboutTag = document.querySelector('.about-tag');
-  if (aboutTag) aboutTag.textContent = t['about-tag'];
-
-  const aboutHeading = document.querySelector('.about-heading');
-  if (aboutHeading) aboutHeading.innerHTML = t['about-heading-html'];
-
-  const b2bTag = document.querySelector('.b2b-tag');
-  if (b2bTag) b2bTag.textContent = t['b2b-tag'];
-
-  const b2bHeading = document.querySelector('.b2b-heading');
-  if (b2bHeading) b2bHeading.innerHTML = t['b2b-heading-html'];
-
-  const logoSpan = document.querySelector('.nav-logo span');
-  if (logoSpan) logoSpan.textContent = t['nav-logo-text'];
-}
-
-</script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -1413,6 +1356,54 @@ function intelSubmit() {
     gtagWhatsApp(); window.open('https://wa.me/971522233989?text=' + text, '_blank');
     setTimeout(closeIntel, 1500);
   }, 2200);
+}
+
+
+/* ─── BILINGUAL TOGGLE ─── */
+const translations = {
+  en: {
+    'hero-label': 'Protecting UAE Waters Since 2016',
+    'hero-title-html': 'Environmental<br>Protection.<br><em>Elevated.</em>',
+    'nav-logo-text': 'ECO Environmental',
+    'about-tag': 'Who We Are',
+    'about-heading-html': 'Government-Level<br><em style="color:var(--teal)">Environmental Partner.</em>',
+    'b2b-tag': 'Institutional & Corporate',
+    'b2b-heading-html': 'Built for Facilities<br><em style="color:var(--teal)">That Cannot Fail.</em>',
+  },
+  ar: {
+    'hero-label': 'نحمي مياه الإمارات منذ 2016',
+    'hero-title-html': 'حماية البيئة.<br><em>على أعلى مستوى.</em>',
+    'nav-logo-text': 'إيكو للبيئة',
+    'about-tag': 'من نحن',
+    'about-heading-html': 'شريك بيئي<br><em style="color:var(--teal)">على المستوى الحكومي.</em>',
+    'b2b-tag': 'المؤسسات والشركات',
+    'b2b-heading-html': 'حلول للمنشآت<br><em style="color:var(--teal)">التي لا تقبل التوقف.</em>',
+  }
+};
+
+let currentLang = 'en';
+
+function toggleLang() {
+  currentLang = currentLang === 'en' ? 'ar' : 'en';
+  const isAr = currentLang === 'ar';
+  document.documentElement.setAttribute('dir', isAr ? 'rtl' : 'ltr');
+  document.documentElement.setAttribute('lang', currentLang);
+  document.getElementById('langBtn').textContent = isAr ? 'EN' : 'AR';
+  const t = translations[currentLang];
+  const heroLabel = document.querySelector('.hero-label');
+  if (heroLabel) heroLabel.textContent = t['hero-label'];
+  const heroTitle = document.querySelector('.hero-title');
+  if (heroTitle) heroTitle.innerHTML = t['hero-title-html'];
+  const aboutTag = document.querySelector('.about-tag');
+  if (aboutTag) aboutTag.textContent = t['about-tag'];
+  const aboutHeading = document.querySelector('.about-heading');
+  if (aboutHeading) aboutHeading.innerHTML = t['about-heading-html'];
+  const b2bTag = document.querySelector('.b2b-tag');
+  if (b2bTag) b2bTag.textContent = t['b2b-tag'];
+  const b2bHeading = document.querySelector('.b2b-heading');
+  if (b2bHeading) b2bHeading.innerHTML = t['b2b-heading-html'];
+  const logoSpan = document.querySelector('.nav-logo span');
+  if (logoSpan) logoSpan.textContent = t['nav-logo-text'];
 }
 
 </script>
