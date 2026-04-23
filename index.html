@@ -401,6 +401,50 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:80px 48px
 .trn{background:var(--glass);border:1px solid var(--border);padding:4px 12px}
 
 
+
+/* ─── COUNT-UP ─── */
+.stat-num[data-target]{transition:color .3s}
+
+/* ─── AVAILABILITY ─── */
+.avail-indicator{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);opacity:.7}
+.avail-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.avail-dot.open{background:#00c4a7;animation:blink 2s infinite;box-shadow:0 0 6px rgba(0,196,167,.6)}
+.avail-dot.emergency{background:#e8a33e;animation:blink 1.5s infinite}
+.avail-dot.closed{background:#666;animation:none}
+.avail-text.open{color:var(--teal)}
+.avail-text.emergency{color:#e8a33e}
+
+/* ─── BACK TO TOP ─── */
+.back-top{position:fixed;bottom:100px;right:32px;z-index:140;width:44px;height:44px;background:var(--bg2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--teal);opacity:0;pointer-events:none;transition:opacity .3s,border-color .2s,transform .2s;cursor:none}
+.back-top.visible{opacity:1;pointer-events:auto}
+.back-top:hover{border-color:var(--teal);transform:translateY(-3px)}
+
+/* ─── SHARE BUTTON ─── */
+.share-btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);border:1px solid var(--border);padding:10px 18px;transition:color .2s,border-color .2s;text-decoration:none;margin-top:16px}
+.share-btn:hover{color:var(--teal);border-color:rgba(0,196,167,.4)}
+
+/* ─── COOKIE NOTICE ─── */
+.cookie-bar{position:fixed;bottom:0;left:0;right:0;z-index:300;background:rgba(13,21,16,.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--border);padding:20px 48px;display:flex;align-items:center;justify-content:space-between;gap:32px;transform:translateY(100%);transition:transform .5s cubic-bezier(.2,0,0,1)}
+.cookie-bar.visible{transform:translateY(0)}
+.cookie-text{font-family:var(--mono);font-size:.62rem;letter-spacing:.05em;line-height:1.7;color:var(--dim);max-width:600px}
+.cookie-text a{color:var(--teal);text-decoration:none}
+.cookie-actions{display:flex;gap:12px;flex-shrink:0}
+.cookie-accept{font-family:var(--mono);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;padding:10px 24px;background:var(--teal);color:var(--bg);border:none;cursor:none;transition:background .2s}
+.cookie-accept:hover{background:var(--teal2)}
+.cookie-decline{font-family:var(--mono);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;padding:10px 20px;background:none;border:1px solid var(--border);color:var(--dim);cursor:none;transition:border-color .2s,color .2s}
+.cookie-decline:hover{border-color:var(--teal);color:var(--white)}
+@media(max-width:768px){.cookie-bar{flex-direction:column;padding:24px;gap:16px}.cookie-actions{width:100%}.cookie-accept,.cookie-decline{flex:1;text-align:center}}
+
+/* ─── PAGE PROGRESS BAR ─── */
+.progress-bar{position:fixed;top:0;left:0;height:2px;background:var(--teal);z-index:999;width:0%;transition:width .1s linear;box-shadow:0 0 8px rgba(0,196,167,.4)}
+
+/* ─── ENHANCED SERVICE CARDS ─── */
+.service-card{cursor:none}
+.service-card:hover .service-arrow{opacity:1;transform:rotate(45deg)}
+
+/* ─── SMOOTH SECTION TRANSITIONS ─── */
+section{opacity:1}
+
 /* ─── VISITOR COUNTER ─── */
 .visitor-counter{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);opacity:.5;transition:opacity .3s}
 .visitor-counter:hover{opacity:.9}
@@ -447,6 +491,50 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:80px 48px
 }
 </style>
 <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript">
+
+/* ─── COUNT-UP ─── */
+.stat-num[data-target]{transition:color .3s}
+
+/* ─── AVAILABILITY ─── */
+.avail-indicator{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);opacity:.7}
+.avail-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.avail-dot.open{background:#00c4a7;animation:blink 2s infinite;box-shadow:0 0 6px rgba(0,196,167,.6)}
+.avail-dot.emergency{background:#e8a33e;animation:blink 1.5s infinite}
+.avail-dot.closed{background:#666;animation:none}
+.avail-text.open{color:var(--teal)}
+.avail-text.emergency{color:#e8a33e}
+
+/* ─── BACK TO TOP ─── */
+.back-top{position:fixed;bottom:100px;right:32px;z-index:140;width:44px;height:44px;background:var(--bg2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--teal);opacity:0;pointer-events:none;transition:opacity .3s,border-color .2s,transform .2s;cursor:none}
+.back-top.visible{opacity:1;pointer-events:auto}
+.back-top:hover{border-color:var(--teal);transform:translateY(-3px)}
+
+/* ─── SHARE BUTTON ─── */
+.share-btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);border:1px solid var(--border);padding:10px 18px;transition:color .2s,border-color .2s;text-decoration:none;margin-top:16px}
+.share-btn:hover{color:var(--teal);border-color:rgba(0,196,167,.4)}
+
+/* ─── COOKIE NOTICE ─── */
+.cookie-bar{position:fixed;bottom:0;left:0;right:0;z-index:300;background:rgba(13,21,16,.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--border);padding:20px 48px;display:flex;align-items:center;justify-content:space-between;gap:32px;transform:translateY(100%);transition:transform .5s cubic-bezier(.2,0,0,1)}
+.cookie-bar.visible{transform:translateY(0)}
+.cookie-text{font-family:var(--mono);font-size:.62rem;letter-spacing:.05em;line-height:1.7;color:var(--dim);max-width:600px}
+.cookie-text a{color:var(--teal);text-decoration:none}
+.cookie-actions{display:flex;gap:12px;flex-shrink:0}
+.cookie-accept{font-family:var(--mono);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;padding:10px 24px;background:var(--teal);color:var(--bg);border:none;cursor:none;transition:background .2s}
+.cookie-accept:hover{background:var(--teal2)}
+.cookie-decline{font-family:var(--mono);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;padding:10px 20px;background:none;border:1px solid var(--border);color:var(--dim);cursor:none;transition:border-color .2s,color .2s}
+.cookie-decline:hover{border-color:var(--teal);color:var(--white)}
+@media(max-width:768px){.cookie-bar{flex-direction:column;padding:24px;gap:16px}.cookie-actions{width:100%}.cookie-accept,.cookie-decline{flex:1;text-align:center}}
+
+/* ─── PAGE PROGRESS BAR ─── */
+.progress-bar{position:fixed;top:0;left:0;height:2px;background:var(--teal);z-index:999;width:0%;transition:width .1s linear;box-shadow:0 0 8px rgba(0,196,167,.4)}
+
+/* ─── ENHANCED SERVICE CARDS ─── */
+.service-card{cursor:none}
+.service-card:hover .service-arrow{opacity:1;transform:rotate(45deg)}
+
+/* ─── SMOOTH SECTION TRANSITIONS ─── */
+section{opacity:1}
+
 /* ─── VISITOR COUNTER ─── */
 (function() {
   const key = 'eco-environmental-uae-v1';
@@ -491,6 +579,23 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:80px 48px
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
+<!-- Progress Bar -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- Back to Top -->
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 9l5-5 5 5"/></svg>
+</button>
+
+<!-- Cookie Notice -->
+<div class="cookie-bar" id="cookieBar">
+  <p class="cookie-text">We use Google Analytics to understand how visitors use this site. No personal data is sold. By continuing, you agree to our use of cookies. <a href="https://policies.google.com/privacy" target="_blank">Privacy Policy</a></p>
+  <div class="cookie-actions">
+    <button class="cookie-decline" onclick="dismissCookie(false)">Decline</button>
+    <button class="cookie-accept" onclick="dismissCookie(true)">Accept</button>
+  </div>
+</div>
+
 <!-- WhatsApp FAB -->
 <a href="https://wa.me/971522233989" class="wa-fab" target="_blank" title="WhatsApp" onclick="gtagWhatsApp()">
   <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.3" xmlns="http://www.w3.org/2000/svg">
@@ -518,6 +623,10 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:80px 48px
 </a>
   <div class="nav-right">
     <button class="lang-toggle" id="langBtn" onclick="toggleLang()">AR</button>
+    <div class="avail-indicator" id="availIndicator">
+      <span class="avail-dot" id="availDot"></span>
+      <span class="avail-text" id="availText"></span>
+    </div>
     <button class="nav-experts-btn" onclick="openIntel()">
       <span class="nav-experts-dot"></span>
       Experts ↗
@@ -625,19 +734,19 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:80px 48px
 <section class="stats-section" style="padding:0">
   <div class="stats-grid reveal">
     <div class="stat-item">
-      <span class="stat-num">80<sup style="font-size:.5em">+</sup></span>
+      <span class="stat-num" data-target="80">80<sup style="font-size:.5em">+</sup></span>
       <span class="stat-lbl">Active Clients UAE-Wide</span>
     </div>
     <div class="stat-item">
-      <span class="stat-num">4.53<sup style="font-size:.45em">/5</sup></span>
+      <span class="stat-num" data-target="4.53">4.53<sup style="font-size:.45em">/5</sup></span>
       <span class="stat-lbl">Client Satisfaction</span>
     </div>
     <div class="stat-item">
-      <span class="stat-num">95<sup style="font-size:.45em">%</sup></span>
+      <span class="stat-num" data-target="95">95<sup style="font-size:.45em">%</sup></span>
       <span class="stat-lbl">Client Retention Rate</span>
     </div>
     <div class="stat-item">
-      <span class="stat-num">15K<sup style="font-size:.45em">L</sup></span>
+      <span class="stat-num" data-target="15">15K<sup style="font-size:.45em">L</sup></span>
       <span class="stat-lbl">Grease Removed Monthly</span>
     </div>
   </div>
@@ -1100,6 +1209,10 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:80px 48px
     <div class="footer-brand reveal">
       <div class="footer-brand-name">ECO Environmental</div>
       <p class="footer-brand-desc">ECO Environmental Protection Services LLC — protecting UAE waters through innovative, sustainable marine and environmental services since 2016.</p>
+      <a href="https://wa.me/?text=Check%20out%20ECO%20Environmental%20Protection%20Services%20UAE%20%F0%9F%8C%BF%20https%3A%2F%2Fbinz2008-star.github.io%2Feco-environmental-uae" target="_blank" class="share-btn">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M6 0C2.686 0 0 2.462 0 5.5c0 1.553.68 2.95 1.76 3.95L1 11l1.8-1.1A6.3 6.3 0 0 0 6 11c3.314 0 6-2.462 6-5.5S9.314 0 6 0Z"/></svg>
+        Share on WhatsApp
+      </a>
     </div>
     <div class="footer-col reveal" style="transition-delay:.1s">
       <span class="footer-col-title">Services</span>
@@ -1435,6 +1548,116 @@ function toggleLang() {
   set('.govt-label', 'govt-label');
   set('.footer-brand-desc', 'footer-desc');
 }
+
+
+/* ─── PROGRESS BAR ─── */
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement;
+  const scrolled = doc.scrollTop || document.body.scrollTop;
+  const max = doc.scrollHeight - doc.clientHeight;
+  document.getElementById('progressBar').style.width = (scrolled / max * 100) + '%';
+
+  // Back to top visibility
+  const bt = document.getElementById('backTop');
+  if (bt) { scrolled > 600 ? bt.classList.add('visible') : bt.classList.remove('visible'); }
+});
+
+/* ─── AVAILABILITY INDICATOR ─── */
+(function() {
+  function updateAvailability() {
+    const now = new Date();
+    // UAE is UTC+4
+    const uaeOffset = 4 * 60;
+    const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+    const uae = new Date(utc + uaeOffset * 60000);
+    const day = uae.getDay(); // 0=Sun,1=Mon...5=Fri,6=Sat
+    const hour = uae.getHours();
+    const dot = document.getElementById('availDot');
+    const txt = document.getElementById('availText');
+    if (!dot || !txt) return;
+    // Sun(0)–Thu(4) 8–18
+    if (day >= 0 && day <= 4 && hour >= 8 && hour < 18) {
+      dot.className = 'avail-dot open';
+      txt.className = 'avail-text open';
+      txt.textContent = 'Available Now';
+    } else if (day === 5 || day === 6) {
+      dot.className = 'avail-dot emergency';
+      txt.className = 'avail-text emergency';
+      txt.textContent = 'Emergency Only';
+    } else {
+      dot.className = 'avail-dot emergency';
+      txt.className = 'avail-text emergency';
+      txt.textContent = 'Emergency Only';
+    }
+  }
+  updateAvailability();
+  setInterval(updateAvailability, 60000);
+})();
+
+/* ─── COUNT-UP ANIMATION ─── */
+(function() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = parseFloat(el.dataset.target);
+      if (!target) return;
+      observer.unobserve(el);
+      const isDecimal = target % 1 !== 0;
+      const duration = 1800;
+      const steps = 60;
+      const increment = target / steps;
+      let current = 0;
+      let step = 0;
+      // Preserve inner HTML suffix (sup tags etc)
+      const suffix = el.innerHTML.replace(/^[\d.,]+/, '');
+      const timer = setInterval(() => {
+        step++;
+        current = Math.min(increment * step, target);
+        const display = isDecimal ? current.toFixed(2) : Math.floor(current).toLocaleString();
+        el.innerHTML = display + suffix;
+        if (current >= target) clearInterval(timer);
+      }, duration / steps);
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.stat-num[data-target]').forEach(el => observer.observe(el));
+})();
+
+/* ─── COOKIE NOTICE ─── */
+(function() {
+  if (!localStorage.getItem('eco-cookie-choice')) {
+    setTimeout(() => {
+      const bar = document.getElementById('cookieBar');
+      if (bar) bar.classList.add('visible');
+    }, 2000);
+  }
+})();
+
+function dismissCookie(accepted) {
+  localStorage.setItem('eco-cookie-choice', accepted ? 'accepted' : 'declined');
+  const bar = document.getElementById('cookieBar');
+  if (bar) {
+    bar.style.transform = 'translateY(100%)';
+    setTimeout(() => bar.remove(), 500);
+  }
+  if (!accepted) {
+    // Disable GA if declined
+    window['ga-disable-AW-11097082238'] = true;
+  }
+}
+
+/* ─── ENHANCED CURSOR ON INTERACTIVE ELEMENTS ─── */
+document.querySelectorAll('button,a,.service-card,.price-card,.b2b-card').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    if (cursor) cursor.classList.add('hover');
+    if (ring) ring.classList.add('hover');
+  });
+  el.addEventListener('mouseleave', () => {
+    if (cursor) cursor.classList.remove('hover');
+    if (ring) ring.classList.remove('hover');
+  });
+});
 
 </script>
 </body>
