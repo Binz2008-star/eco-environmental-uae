@@ -269,10 +269,23 @@ section{padding:140px 48px}
 .linkedin-follow:hover{border-color:var(--teal);background:rgba(0,196,167,.06)}
 .linkedin-follow svg{flex-shrink:0}
 .linkedin-embed-wrap{position:relative}
-.linkedin-embed-frame{background:var(--bg);border:1px solid var(--border);overflow:hidden;position:relative}
-.linkedin-embed-frame::before{content:'Latest Post';position:absolute;top:0;left:0;right:0;padding:10px 16px;font-family:var(--mono);font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);background:var(--bg2);border-bottom:1px solid var(--border);z-index:2;opacity:.7}
-.linkedin-embed-frame iframe{display:block;width:100%;margin-top:36px;border:none;filter:grayscale(20%) brightness(0.92);transition:filter .3s}
-.linkedin-embed-frame:hover iframe{filter:grayscale(0%) brightness(1)}
+.li-card{display:block;background:var(--bg);border:1px solid var(--border);padding:28px;text-decoration:none;color:var(--white);transition:border-color .3s,background .3s}
+.li-card:hover{border-color:rgba(0,196,167,.4);background:var(--bg2)}
+.li-card-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:20px}
+.li-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--teal),#0077b5);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.7rem;font-weight:400;color:var(--bg);flex-shrink:0}
+.li-author{flex:1;display:flex;flex-direction:column;gap:3px}
+.li-name{font-size:.95rem;font-style:italic;font-weight:300}
+.li-title{font-family:var(--mono);font-size:.58rem;letter-spacing:.04em;color:var(--dim);line-height:1.4}
+.li-meta{font-family:var(--mono);font-size:.55rem;color:var(--dim);opacity:.6;display:flex;align-items:center;gap:4px;margin-top:2px}
+.li-logo{flex-shrink:0;opacity:.8}
+.li-body{margin-bottom:16px}
+.li-text{font-family:var(--mono);font-size:.68rem;letter-spacing:.03em;line-height:1.75;color:var(--dim);margin-bottom:8px}
+.li-text strong{color:var(--white);font-weight:400}
+.li-tags{font-family:var(--mono);font-size:.58rem;letter-spacing:.04em;color:var(--teal);opacity:.6;margin-bottom:20px}
+.li-footer{display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px solid var(--border)}
+.li-cta{font-family:var(--mono);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--teal)}
+.li-reactions{font-family:var(--mono);font-size:.58rem;color:var(--dim);display:flex;align-items:center;gap:6px}
+.li-react-dot{width:16px;height:16px;border-radius:50%;display:inline-block;border:1px solid var(--bg)}
 @media(max-width:768px){
   .linkedin-inner{grid-template-columns:1fr;gap:48px}
   .linkedin-section{padding:80px 24px}
@@ -792,17 +805,34 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:80px 48px
       </a>
     </div>
     <div class="linkedin-embed-wrap reveal" style="transition-delay:.15s">
-      <div class="linkedin-embed-frame">
-        <iframe
-          src="https://www.linkedin.com/embed/feed/update/urn:li:share:7453052603329855488?collapsed=1"
-          height="400"
-          width="100%"
-          frameborder="0"
-          allowfullscreen=""
-          title="ECO Environmental — LinkedIn Post"
-          loading="lazy">
-        </iframe>
-      </div>
+      <a href="https://www.linkedin.com/posts/robin-edwan_ecoenvironmental-uae-greasetrapcleaning-activity-7453052603329855488" target="_blank" class="li-card">
+        <div class="li-card-head">
+          <div class="li-avatar">RE</div>
+          <div class="li-author">
+            <span class="li-name">Robin Edwan</span>
+            <span class="li-title">General Manager · ECO Environmental Protection Services</span>
+            <span class="li-meta">Today · <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" style="opacity:.5"><circle cx="5" cy="5" r="4" stroke="currentColor" stroke-width="1" fill="none"/><path d="M5 2v3l2 1.5" stroke="currentColor" stroke-width="1" fill="none"/></svg> Just posted</span>
+          </div>
+          <div class="li-logo">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="#0077b5"><rect width="18" height="18" rx="3"/><rect x="2.5" y="6.5" width="3" height="9" fill="white"/><circle cx="4" cy="4" r="1.8" fill="white"/><path d="M8 6.5h2.8v1.4h.04A3.1 3.1 0 0 1 13.6 6.3C16 6.3 16.5 7.7 16.5 10v5.5h-3V10.6c0-1.1-.02-2.5-1.53-2.5-1.53 0-1.77 1.2-1.77 2.43V15.5H8V6.5Z" fill="white"/></svg>
+          </div>
+        </div>
+        <div class="li-body">
+          <p class="li-text">Eight years ago, we started with a simple belief: Environmental protection in the UAE deserved better. Better service. Better compliance. Better results.</p>
+          <p class="li-text">Today, ECO Environmental Protection Services LLC has served <strong>80+ clients</strong>, completed <strong>500+ projects</strong>, and protected waterways across every one of the seven Emirates.</p>
+          <p class="li-text" style="color:var(--teal);margin-top:8px">🌐 eco-environmental-uae.netlify.app</p>
+        </div>
+        <div class="li-tags">#ECOEnvironmental &nbsp;#UAE &nbsp;#GreaseTrap &nbsp;#Sustainability</div>
+        <div class="li-footer">
+          <span class="li-cta">View on LinkedIn →</span>
+          <span class="li-reactions">
+            <span class="li-react-dot" style="background:#0077b5"></span>
+            <span class="li-react-dot" style="background:#c4415e;margin-left:-5px"></span>
+            <span class="li-react-dot" style="background:#e7a33e;margin-left:-5px"></span>
+            &nbsp;reactions
+          </span>
+        </div>
+      </a>
     </div>
   </div>
 </section>
