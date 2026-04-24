@@ -1658,7 +1658,7 @@ const translations = {
     'services-label': 'خدماتنا',
     'contact-title': 'دعنا نحمي بيئتك',
     'govt-label': 'الشراكات الحكومية والمؤسسية',
-    'footer-desc': 'شركة إيكو للخدمات البيئية ذ.م.م — نحمي مياه الإمارات من خلال حلول بيئية مبتكرة ومستدامة منذ 2016.',
+    'footer-desc': 'شركة إيكو للخدمات البيئية LLC — نحمي مياه الإمارات من خلال حلول بيئية مبتكرة ومستدامة منذ 2016.',
   }
 };
 
@@ -1744,6 +1744,11 @@ window.addEventListener('scroll', () => {
 
 /* ─── COUNT-UP ANIMATION ─── */
 (function() {
+  // Store original HTML for each stat before observer fires
+  document.querySelectorAll('.stat-num[data-target]').forEach(el => {
+    el.dataset.original = el.innerHTML;
+  });
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
@@ -1751,23 +1756,33 @@ window.addEventListener('scroll', () => {
       const target = parseFloat(el.dataset.target);
       if (!target) return;
       observer.unobserve(el);
+
+      const original = el.dataset.original;
       const isDecimal = target % 1 !== 0;
-      const duration = 1800;
+      // Extract just the suffix HTML after the number (sup tags, symbols)
+      const numStr = isDecimal ? target.toString() : Math.floor(target).toString();
+      // Find where number ends in original HTML
+      const firstNonNum = original.search(/[^0-9.]/);
+      const suffix = firstNonNum > -1 ? original.slice(firstNonNum) : '';
+
+      const duration = 2000;
       const steps = 60;
       const increment = target / steps;
       let current = 0;
       let step = 0;
-      // Preserve inner HTML suffix (sup tags etc)
-      const suffix = el.innerHTML.replace(/^[\d.,]+/, '');
+
       const timer = setInterval(() => {
         step++;
         current = Math.min(increment * step, target);
         const display = isDecimal ? current.toFixed(2) : Math.floor(current).toLocaleString();
         el.innerHTML = display + suffix;
-        if (current >= target) clearInterval(timer);
+        if (current >= target) {
+          el.innerHTML = original; // restore exact original at end
+          clearInterval(timer);
+        }
       }, duration / steps);
     });
-  }, { threshold: 0.5 });
+  }, { threshold: 0.3 });
 
   document.querySelectorAll('.stat-num[data-target]').forEach(el => observer.observe(el));
 })();
