@@ -445,6 +445,15 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:80px 48px
 /* ─── SMOOTH SECTION TRANSITIONS ─── */
 section{opacity:1}
 
+
+/* ─── JOTFORM EMBED ─── */
+.jotform-wrap{position:relative;background:var(--bg2);border:1px solid var(--border);overflow:hidden}
+.jotform-label{font-family:var(--mono);font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);padding:12px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;opacity:.7}
+.jotform-label::before{content:'';width:5px;height:5px;background:var(--teal);border-radius:50%;animation:blink 2s infinite}
+.jotform-wrap iframe{display:block;width:100%;border:none;min-height:620px;filter:invert(1) hue-rotate(155deg) brightness(0.85) saturate(1.2)}
+.jotform-wrap iframe:focus{outline:none}
+@media(max-width:768px){.jotform-wrap iframe{min-height:800px}}
+
 /* ─── VISITOR COUNTER ─── */
 .visitor-counter{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);opacity:.5;transition:opacity .3s}
 .visitor-counter:hover{opacity:.9}
@@ -534,6 +543,15 @@ section{opacity:1}
 
 /* ─── SMOOTH SECTION TRANSITIONS ─── */
 section{opacity:1}
+
+
+/* ─── JOTFORM EMBED ─── */
+.jotform-wrap{position:relative;background:var(--bg2);border:1px solid var(--border);overflow:hidden}
+.jotform-label{font-family:var(--mono);font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);padding:12px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;opacity:.7}
+.jotform-label::before{content:'';width:5px;height:5px;background:var(--teal);border-radius:50%;animation:blink 2s infinite}
+.jotform-wrap iframe{display:block;width:100%;border:none;min-height:620px;filter:invert(1) hue-rotate(155deg) brightness(0.85) saturate(1.2)}
+.jotform-wrap iframe:focus{outline:none}
+@media(max-width:768px){.jotform-wrap iframe{min-height:800px}}
 
 /* ─── VISITOR COUNTER ─── */
 (function() {
@@ -1823,5 +1841,10 @@ document.querySelectorAll('button,a,.service-card,.price-card,.b2b-card').forEac
 });
 
 </script>
+
+<!-- Jotform embed handler -->
+<script src='https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js'></script>
+<script>window.jotformEmbedHandler("iframe[id='JotFormIFrame-261008161739051']", "https://form.jotform.com/")</script>
+
 </body>
 </html>
