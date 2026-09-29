@@ -188,19 +188,7 @@ function toggleTheme(){
   localStorage.setItem('eco-theme',isLight?'light':'dark');
 }
 if(localStorage.getItem('eco-theme')==='light')toggleTheme();
-/* ── COOKIE CONSENT (SECURITY FIX: localStorage) ── */
-function dismissCookie(accepted){
-  localStorage.setItem('eco-v2-cookie',accepted?'accepted':'declined');
-  const bar=document.getElementById('cookie');
-  if(bar)bar.style.display='none';
-  if(!accepted){try{window['ga-disable-AW-11097082238']=true;}catch(e){}}
-}
-(function initCookie(){
-  if(localStorage.getItem('eco-v2-cookie')){
-    const bar=document.getElementById('cookie');
-    if(bar)bar.style.display='none';
-  }
-})();
+/* ── COOKIE CONSENT: handled in analytics.js (ads load only after Accept) ── */
 /* ── VISITOR COUNTER ── */
 fetch('https://api.counterapi.dev/v1/eco-environmental-uae/visit/visit')
   .then(r=>r.json()).then(d=>{const el=document.getElementById('visitorCount');if(el&&d&&d.count)el.textContent='Visitors: '+d.count.toLocaleString();}).catch(()=>{});

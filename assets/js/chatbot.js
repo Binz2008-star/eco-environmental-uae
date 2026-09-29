@@ -32,10 +32,18 @@ function toggleRobin(){
     setTimeout(()=>setQuick(['\ud83e\uddf9 \u062a\u0646\u0638\u064a\u0641 \u0645\u0635\u0627\u0626\u062f \u0627\u0644\u0634\u062d\u0648\u0645','\ud83d\udcb0 \u0627\u0644\u0623\u0633\u0639\u0627\u0631 / Pricing','\ud83d\udccb \u0639\u0642\u062f AMC','\ud83d\udea2 \u062e\u062f\u0645\u0627\u062a \u0628\u062d\u0631\u064a\u0629','\ud83d\udcde \u062a\u0648\u0627\u0635\u0644 \u0645\u0639\u0646\u0627']),750);
   }
 }
+/* Safe rendering: text nodes only; **bold** becomes <strong>. Newlines rely on white-space:pre-wrap. */
+function renderSafe(el,text){
+  String(text).split(/\*\*(.*?)\*\*/g).forEach((part,i)=>{
+    if(!part)return;
+    if(i%2){const b=document.createElement('strong');b.textContent=part;el.appendChild(b);}
+    else el.appendChild(document.createTextNode(part));
+  });
+}
 function addMsg(role,text){
   const div=document.createElement('div');div.className='r-msg '+role;
   const bubble=document.createElement('div');bubble.className='r-bubble';
-  bubble.textContent=text;
+  renderSafe(bubble,text);
   if(role==='bot'){const av=document.createElement('div');av.className='r-mini-av';av.textContent='R';div.appendChild(av);}
   div.appendChild(bubble);msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;
 }
