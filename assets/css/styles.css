@@ -374,3 +374,9 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--teal);outline-offse
 /* Performance: defer layout work for below-the-fold sections */
 body:not(.emirate-page) .sec:not(#hero){content-visibility:auto;contain-intrinsic-size:700px}
 #cookie[hidden]{display:none!important}
+
+/* Compact cookie consent: keeps the notice unobtrusive on mobile and out of the LCP competition */
+#cookie{bottom:12px;left:auto;right:12px;width:min(360px,calc(100vw - 24px));padding:.55rem .65rem;border:1px solid var(--bdt);border-radius:12px;display:flex;align-items:center;flex-wrap:nowrap;gap:.6rem;background:rgba(6,18,28,.96);box-shadow:0 8px 24px rgba(0,0,0,.22);backdrop-filter:none;contain:layout paint}
+#cookie p{font-size:.62rem;line-height:1.35;min-width:0;margin:0;flex:1;color:var(--t70)}#cookie a{white-space:nowrap}
+#cookie .ck-btns{gap:.35rem;flex-shrink:0}.ck-btn{padding:.32rem .55rem;font-size:.62rem;line-height:1.1;white-space:nowrap}
+@media(max-width:420px){#cookie{bottom:8px;right:8px;width:calc(100vw - 16px);padding:.45rem .55rem;gap:.45rem}#cookie p{font-size:.58rem}.ck-btn{padding:.3rem .45rem;font-size:.58rem}}
