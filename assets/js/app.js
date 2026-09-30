@@ -192,3 +192,37 @@ if(localStorage.getItem('eco-theme')==='light')toggleTheme();
 /* ── VISITOR COUNTER ── */
 fetch('https://api.counterapi.dev/v1/eco-environmental-uae/visit/visit')
   .then(r=>r.json()).then(d=>{const el=document.getElementById('visitorCount');if(el&&d&&d.count)el.textContent='Visitors: '+d.count.toLocaleString();}).catch(()=>{});
+/* ── INTERACTIVE COVERAGE MAP ── */
+const mapDetails={
+  'Abu Dhabi':['Abu Dhabi','Full coverage · Environmental and marine services'],
+  'Dubai':['Dubai','Full coverage · Municipality-focused service support'],
+  'Sharjah':['Sharjah','Urban & industrial coverage'],
+  'Ajman':['Ajman','Headquartered · Full UAE coordination'],
+  'Umm Al Quwain':['Umm Al Quwain','Full coverage · Scheduled service available'],
+  'Ras Al Khaimah':['Ras Al Khaimah','Full coverage · Scheduled service available'],
+  'Fujairah':['Fujairah','Full coverage · Maritime facilities serviced']
+};
+function selectEmirate(name){
+  document.querySelectorAll('.map-emirate').forEach(el=>el.classList.toggle('active',el.dataset.emirate===name));
+  const detail=mapDetails[name]||[name,'Coverage available across the UAE'];
+  const nameEl=document.getElementById('mapDetailName'); const statusEl=document.getElementById('mapDetailStatus');
+  if(nameEl)nameEl.textContent=detail[0]; if(statusEl)statusEl.textContent=detail[1];
+}
+document.querySelectorAll('.map-emirate').forEach(el=>{
+  el.addEventListener('click',()=>selectEmirate(el.dataset.emirate));
+  el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selectEmirate(el.dataset.emirate);}});
+});
+/* ── ENVIRONMENTAL INDICATOR SELECTOR ── */
+const indicatorDetails={
+  water:['50,000 litres','of water protected daily across the seven Emirates.','82%'],
+  uco:['10,000 litres','of used cooking oil recycled monthly into biofuel.','64%'],
+  sewage:['30%','average sewage maintenance cost reduction for program clients.','30%'],
+  'water-use':['40%','water consumption reduction at facilities using biological treatment.','40%']
+};
+document.querySelectorAll('.indicator-item').forEach(btn=>btn.addEventListener('click',()=>{
+  const key=btn.dataset.indicator; const data=indicatorDetails[key]; if(!data)return;
+  document.querySelectorAll('.indicator-item').forEach(item=>{item.classList.remove('active');item.setAttribute('aria-pressed','false');});
+  btn.classList.add('active');btn.setAttribute('aria-pressed','true');
+  const focus=document.getElementById('indicatorFocus');
+  if(focus){focus.querySelector('strong').textContent=data[0];focus.querySelector('p').textContent=data[1];focus.querySelector('.focus-bar span').style.width=data[2];}
+}));

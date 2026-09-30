@@ -298,6 +298,32 @@ Send Request via WhatsApp</button>
 <div class="emirate-card"><div class="emirate-name">Ras Al Khaimah</div><div class="emirate-status">Full Coverage</div></div>
 <div class="emirate-card"><div class="emirate-name">Fujairah</div><div class="emirate-status">Full Coverage</div></div>
 </div>
+
+<div class="coverage-map-card reveal">
+<div class="map-card-head">
+<div><span class="map-kicker">Interactive coverage</span><h3>UAE Service Map</h3></div>
+<span class="map-live-dot">7 Emirates</span>
+</div>
+<p class="map-note">Select an emirate to view service coverage. Schematic map for orientation, not a legal boundary map.</p>
+<div class="uae-map-wrap">
+<svg aria-labelledby="uaeMapTitle uaeMapDesc" class="uae-map" role="img" viewbox="0 0 520 300">
+<title id="uaeMapTitle">Interactive schematic map of UAE service coverage</title>
+<desc id="uaeMapDesc">Seven selectable emirate regions showing ECO Environmental coverage across the UAE.</desc>
+<path aria-label="Abu Dhabi — Full coverage" class="map-emirate" d="M68 145 L105 108 L173 112 L187 151 L169 207 L113 232 L67 207 Z" data-emirate="Abu Dhabi" role="button" tabindex="0"></path>
+<path aria-label="Dubai — Full coverage" class="map-emirate" d="M173 112 L208 102 L231 125 L217 153 L187 151 Z" data-emirate="Dubai" role="button" tabindex="0"></path>
+<path aria-label="Sharjah — Urban and industrial" class="map-emirate" d="M208 102 L257 93 L276 117 L246 140 L217 153 L231 125 Z" data-emirate="Sharjah" role="button" tabindex="0"></path>
+<path aria-label="Ajman — Headquartered" class="map-emirate active" d="M246 140 L276 117 L294 133 L282 157 L256 160 Z" data-emirate="Ajman" role="button" tabindex="0"></path>
+<path aria-label="Umm Al Quwain — Full coverage" class="map-emirate" d="M276 117 L321 105 L344 127 L318 153 L282 157 L294 133 Z" data-emirate="Umm Al Quwain" role="button" tabindex="0"></path>
+<path aria-label="Ras Al Khaimah — Full coverage" class="map-emirate" d="M321 105 L380 84 L416 110 L384 142 L344 127 Z" data-emirate="Ras Al Khaimah" role="button" tabindex="0"></path>
+<path aria-label="Fujairah — Full coverage" class="map-emirate" d="M416 110 L454 129 L438 187 L405 178 L384 142 Z" data-emirate="Fujairah" role="button" tabindex="0"></path>
+<path aria-hidden="true" class="map-coast" d="M68 145 C150 89 224 78 300 88 C376 98 420 75 454 129"></path>
+</svg>
+<div class="map-legend"><span><i class="legend-dot legend-dot--active"></i>Headquarters</span><span><i class="legend-dot"></i>Full coverage</span></div>
+</div>
+<div aria-live="polite" class="map-detail" id="mapDetail">
+<strong id="mapDetailName">Ajman</strong><span id="mapDetailStatus">Headquartered · Full UAE coordination</span>
+</div>
+</div>
 </div>
 <div class="reveal">
 <div class="coverage-details">
@@ -305,6 +331,18 @@ Send Request via WhatsApp</button>
 <div class="cov-item"><div class="cov-item-icon">⚓</div><div><h4>Port Coverage</h4><p>Dubai · Abu Dhabi · Sharjah · Ajman<br/>All UAE maritime facilities serviced</p></div></div>
 <div class="cov-item"><div class="cov-item-icon">🚨</div><div><h4>Emergency Response</h4><p>60–120 minute guaranteed response across all covered areas, day or night.</p></div></div>
 <div class="cov-item"><div class="cov-item-icon">📋</div><div><h4>Every Visit Documented</h4><p>GoCanvas field report with before/after photos after every service visit.</p></div></div>
+</div>
+
+<div class="impact-dashboard reveal" id="impactDashboard">
+<div class="map-card-head"><div><span class="map-kicker">Reported impact</span><h3>Environmental Indicators</h3></div><span class="indicator-badge">ECO data</span></div>
+<p class="map-note">Program-level figures reported by ECO Environmental; these are not live sensor readings.</p>
+<div class="indicator-list">
+<button aria-pressed="true" class="indicator-item active" data-indicator="water" type="button"><span class="indicator-icon">💧</span><span class="indicator-copy"><strong>Water protected daily</strong><small>Oil and grease contamination prevented</small></span><span class="indicator-value">50k<span>L</span></span></button>
+<button aria-pressed="false" class="indicator-item" data-indicator="uco" type="button"><span class="indicator-icon">♻️</span><span class="indicator-copy"><strong>UCO recycled monthly</strong><small>Collected for conversion to biofuel</small></span><span class="indicator-value">10k<span>L</span></span></button>
+<button aria-pressed="false" class="indicator-item" data-indicator="sewage" type="button"><span class="indicator-icon">📉</span><span class="indicator-copy"><strong>Sewage cost reduction</strong><small>Average for maintenance-program clients</small></span><span class="indicator-value">30<span>%</span></span></button>
+<button aria-pressed="false" class="indicator-item" data-indicator="water-use" type="button"><span class="indicator-icon">🚿</span><span class="indicator-copy"><strong>Water consumption reduction</strong><small>Facilities using biological treatment</small></span><span class="indicator-value">40<span>%</span></span></button>
+</div>
+<div class="indicator-focus" id="indicatorFocus"><span class="focus-label">Selected indicator</span><strong>50,000 litres</strong><p>of water protected daily across the seven Emirates.</p><div class="focus-bar"><span style="width:82%"></span></div></div>
 </div>
 </div>
 </div></div>
