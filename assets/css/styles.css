@@ -373,3 +373,4 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--teal);outline-offse
 .map-detail{flex-wrap:wrap}.map-detail-link{margin-left:auto;color:var(--teal);font-family:var(--mono);font-size:.58rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none}.map-detail-link:hover{color:var(--white)}
 /* Performance: defer layout work for below-the-fold sections */
 body:not(.emirate-page) .sec:not(#hero){content-visibility:auto;contain-intrinsic-size:700px}
+#cookie[hidden]{display:none!important}

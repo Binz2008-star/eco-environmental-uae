@@ -16,14 +16,17 @@ function gtagQuote(){if(ecoAdsLoaded)gtag('event','conversion',{'send_to':'AW-11
 function dismissCookie(accepted){
   localStorage.setItem('eco-v2-cookie',accepted?'accepted':'declined');
   const bar=document.getElementById('cookie');
-  if(bar)bar.style.display='none';
+  if(bar){bar.hidden=true;bar.style.display='none';}
   if(accepted)loadAds();
 }
 (function initCookie(){
   const choice=localStorage.getItem('eco-v2-cookie');
   if(choice){
     const bar=document.getElementById('cookie');
-    if(bar)bar.style.display='none';
+    if(bar){bar.hidden=true;bar.style.display='none';}
     if(choice==='accepted')loadAds();
+  } else {
+    const bar=document.getElementById('cookie');
+    if(bar){bar.hidden=false;bar.style.display='flex';}
   }
 })();

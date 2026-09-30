@@ -185,7 +185,7 @@ function toggleTheme(){
 if(localStorage.getItem('eco-theme')==='light')toggleTheme();
 /* ── COOKIE CONSENT: handled in analytics.js (ads load only after Accept) ── */
 /* ── VISITOR COUNTER ── */
-window.addEventListener('load',()=>setTimeout(()=>fetch('https://api.counterapi.dev/v1/eco-environmental-uae/visit/visit').then(r=>r.json()).then(d=>{const el=document.getElementById('visitorCount');if(el&&d&&d.count)el.textContent='Visitors: '+d.count.toLocaleString();}).catch(()=>{}),1800),{once:true});
+// Disabled: the previous Counter API endpoint returned HTTP 410.
 /* ── INTERACTIVE COVERAGE MAP ── */
 const mapSlugs={'Abu Dhabi':'abu-dhabi','Dubai':'dubai','Sharjah':'sharjah','Ajman':'ajman','Umm Al Quwain':'umm-al-quwain','Ras Al Khaimah':'ras-al-khaimah','Fujairah':'fujairah'};
 const mapDetails={
