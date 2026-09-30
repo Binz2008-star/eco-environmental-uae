@@ -193,6 +193,7 @@ if(localStorage.getItem('eco-theme')==='light')toggleTheme();
 fetch('https://api.counterapi.dev/v1/eco-environmental-uae/visit/visit')
   .then(r=>r.json()).then(d=>{const el=document.getElementById('visitorCount');if(el&&d&&d.count)el.textContent='Visitors: '+d.count.toLocaleString();}).catch(()=>{});
 /* ── INTERACTIVE COVERAGE MAP ── */
+const mapSlugs={'Abu Dhabi':'abu-dhabi','Dubai':'dubai','Sharjah':'sharjah','Ajman':'ajman','Umm Al Quwain':'umm-al-quwain','Ras Al Khaimah':'ras-al-khaimah','Fujairah':'fujairah'};
 const mapDetails={
   'Abu Dhabi':['Abu Dhabi','Full coverage · Environmental and marine services'],
   'Dubai':['Dubai','Full coverage · Municipality-focused service support'],
@@ -207,10 +208,12 @@ function selectEmirate(name){
   const detail=mapDetails[name]||[name,'Coverage available across the UAE'];
   const nameEl=document.getElementById('mapDetailName'); const statusEl=document.getElementById('mapDetailStatus');
   if(nameEl)nameEl.textContent=detail[0]; if(statusEl)statusEl.textContent=detail[1];
+  const linkEl=document.getElementById('mapDetailLink');
+  if(linkEl)linkEl.href='emirates/'+(mapSlugs[name]||'ajman')+'.html';
 }
 document.querySelectorAll('.map-emirate').forEach(el=>{
-  el.addEventListener('click',()=>selectEmirate(el.dataset.emirate));
-  el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selectEmirate(el.dataset.emirate);}});
+  el.addEventListener('click',()=>{selectEmirate(el.dataset.emirate);window.location.href='emirates/'+mapSlugs[el.dataset.emirate]+'.html';});
+  el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selectEmirate(el.dataset.emirate);window.location.href='emirates/'+mapSlugs[el.dataset.emirate]+'.html';}});
 });
 /* ── ENVIRONMENTAL INDICATOR SELECTOR ── */
 const indicatorDetails={
