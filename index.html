@@ -148,12 +148,8 @@ Send Request via WhatsApp</button>
 <section class="sec" id="about">
 <div class="wrap"><div class="about-grid">
 <div class="about-visual reveal-left">
-<div class="about-img-main">
-<img alt="Robin Edwan at Ajman Environmental Conference" decoding="async" height="1120" loading="lazy" onerror="this.style.opacity='0'" src="https://binz2008-star.github.io/eco-environmental-uae/img-conference.jpg" width="895"/>
-</div>
-<div class="about-img-secondary">
-<img alt="ECO Technology HQ Ajman" decoding="async" height="1080" loading="lazy" onerror="this.style.opacity='0'" src="https://binz2008-star.github.io/eco-environmental-uae/img-shopfront.jpg" width="1440"/>
-</div>
+<div class="about-img-main"><picture><source srcset="img-conference.webp" type="image/webp"/><img alt="Robin Edwan at Ajman Environmental Conference" decoding="async" height="1120" loading="lazy" onerror="this.style.opacity='0'" src="img-conference.jpg" width="895"/></picture></div>
+<div class="about-img-secondary"><picture><source srcset="img-shopfront.webp" type="image/webp"/><img alt="ECO Technology HQ Ajman" decoding="async" height="1080" loading="lazy" onerror="this.style.opacity='0'" src="img-shopfront.jpg" width="1440"/></picture></div>
 <div class="about-achieve"><span class="about-achieve-num">10+</span><span class="about-achieve-lbl">Years Serving UAE</span></div>
 </div>
 <div class="about-text reveal">
@@ -474,7 +470,7 @@ Send via WhatsApp →</button>
 <a class="s-call" href="tel:+971522233989">📞</a>
 </div>
 <button aria-label="Back to top" id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})" type="button">↑</button>
-<button aria-label="Chat with Robin AI" id="robin-btn" onclick="toggleRobin()" type="button">
+<button aria-label="Chat with Robin AI" id="robin-btn" onclick="loadChatbot()" type="button">
 <div class="robin-notif"></div>
 <div class="robin-tooltip">Chat with Robin AI 👋</div>
 <svg viewbox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path></svg>
@@ -496,6 +492,5 @@ Send via WhatsApp →</button>
 </div>
 </div>
 <script defer="" src="assets/js/app.js"></script>
-<script defer="" src="assets/js/chatbot.js"></script>
 </body>
 </html>

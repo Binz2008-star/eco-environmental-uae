@@ -1,3 +1,18 @@
+/* ── LAZY CHATBOT LOADER ── */
+let chatbotLoading=null;
+function loadChatbot(){
+  const button=document.getElementById('robin-btn');
+  if(typeof window.toggleRobin==='function'){window.toggleRobin();return;}
+  if(button)button.style.opacity='1';
+  if(!chatbotLoading){
+    chatbotLoading=new Promise((resolve,reject)=>{
+      const script=document.createElement('script');
+      script.src='assets/js/chatbot.js'; script.defer=true;
+      script.onload=()=>{if(typeof window.toggleRobin==='function')window.toggleRobin();resolve();};
+      script.onerror=reject; document.body.appendChild(script);
+    });
+  }
+}
 /* ── NAV ── */
 const nav=document.getElementById('mainNav');
 window.addEventListener('scroll',()=>nav.classList.toggle('sc',scrollY>55),{passive:true});
@@ -32,47 +47,27 @@ const counterObs=new IntersectionObserver(entries=>{
 },{threshold:0.3});
 const heroSection=document.querySelector('.hero-section');
 if(heroSection)counterObs.observe(heroSection);
-/* ── PARTICLE CANVAS (O(n²) optimized: d² comparison, no sqrt) ── */
+/* ── PARTICLE CANVAS (runs only while Hero is visible) ── */
 (function(){
   const canvas=document.getElementById('pc');
-  if(!canvas)return;
-  const ctx=canvas.getContext('2d');
-  let W,H,particles=[];
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-  const N=window.innerWidth<600?24:48;
-  const TEAL='rgba(0,212,184,';
+  const particleHero=document.querySelector('.hero-section');
+  if(!canvas||!particleHero||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const ctx=canvas.getContext('2d'); let W,H,particles=[],rafId=0,running=false;
+  const N=window.innerWidth<600?18:36, TEAL='rgba(0,212,184,';
   function resize(){W=canvas.width=canvas.offsetWidth;H=canvas.height=canvas.offsetHeight;}
-  resize();
-  window.addEventListener('resize',resize);
   function Particle(){this.x=Math.random()*W;this.y=Math.random()*H;this.vx=(Math.random()-.5)*.3;this.vy=(Math.random()-.5)*.3;this.r=Math.random()*1.8+.8;}
-  for(let i=0;i<N;i++)particles.push(new Particle());
-  let mx=-9999,my=-9999;
-  canvas.addEventListener('mousemove',e=>{const r=canvas.getBoundingClientRect();mx=e.clientX-r.left;my=e.clientY-r.top;});
-  canvas.addEventListener('touchmove',e=>{const r=canvas.getBoundingClientRect();mx=e.touches[0].clientX-r.left;my=e.touches[0].clientY-r.top;},{passive:true});
+  function reset(){resize();particles=[];for(let i=0;i<N;i++)particles.push(new Particle());}
   function draw(){
+    if(!running)return;
     ctx.clearRect(0,0,W,H);
-    particles.forEach(p=>{
-      const dx=mx-p.x,dy=my-p.y,d2m=dx*dx+dy*dy;
-      if(d2m<10000){const dm=Math.sqrt(d2m);p.vx-=dx/dm*.04;p.vy-=dy/dm*.04;}
-      p.x+=p.vx;p.y+=p.vy;
-      if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
-      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle=TEAL+'.5)';ctx.fill();
-    });
-    for(let i=0;i<particles.length;i++){
-      for(let j=i+1;j<particles.length;j++){
-        const dx=particles[i].x-particles[j].x;
-        const dy=particles[i].y-particles[j].y;
-        const d2=dx*dx+dy*dy;
-        if(d2<10000){
-          ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);
-          ctx.strokeStyle=TEAL+(1-Math.sqrt(d2)/100)*.12+')';ctx.lineWidth=.5;ctx.stroke();
-        }
-      }
-    }
-    requestAnimationFrame(draw);
+    particles.forEach(p=>{const dx=-9999-p.x,dy=-9999-p.y; p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=TEAL+'.5)';ctx.fill();});
+    for(let i=0;i<particles.length;i++)for(let j=i+1;j<particles.length;j++){const dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y,d2=dx*dx+dy*dy;if(d2<10000){ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);ctx.strokeStyle=TEAL+(1-Math.sqrt(d2)/100)*.12+')';ctx.lineWidth=.5;ctx.stroke();}}
+    rafId=requestAnimationFrame(draw);
   }
-  draw();
+  function start(){if(running)return;running=true;if(!particles.length)reset();draw();}
+  function stop(){running=false;cancelAnimationFrame(rafId);ctx.clearRect(0,0,W,H);}
+  window.addEventListener('resize',()=>{if(running)resize()},{passive:true});
+  const observer=new IntersectionObserver(([entry])=>entry.isIntersecting?start():stop(),{threshold:0.05}); observer.observe(particleHero); start();
 })();
 /* ── MODAL ── */
 let selSvc='';
@@ -190,8 +185,7 @@ function toggleTheme(){
 if(localStorage.getItem('eco-theme')==='light')toggleTheme();
 /* ── COOKIE CONSENT: handled in analytics.js (ads load only after Accept) ── */
 /* ── VISITOR COUNTER ── */
-fetch('https://api.counterapi.dev/v1/eco-environmental-uae/visit/visit')
-  .then(r=>r.json()).then(d=>{const el=document.getElementById('visitorCount');if(el&&d&&d.count)el.textContent='Visitors: '+d.count.toLocaleString();}).catch(()=>{});
+window.addEventListener('load',()=>setTimeout(()=>fetch('https://api.counterapi.dev/v1/eco-environmental-uae/visit/visit').then(r=>r.json()).then(d=>{const el=document.getElementById('visitorCount');if(el&&d&&d.count)el.textContent='Visitors: '+d.count.toLocaleString();}).catch(()=>{}),1800),{once:true});
 /* ── INTERACTIVE COVERAGE MAP ── */
 const mapSlugs={'Abu Dhabi':'abu-dhabi','Dubai':'dubai','Sharjah':'sharjah','Ajman':'ajman','Umm Al Quwain':'umm-al-quwain','Ras Al Khaimah':'ras-al-khaimah','Fujairah':'fujairah'};
 const mapDetails={
