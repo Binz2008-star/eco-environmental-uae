@@ -69,6 +69,34 @@ if(heroSection)counterObs.observe(heroSection);
   window.addEventListener('resize',()=>{if(running)resize()},{passive:true});
   const observer=new IntersectionObserver(([entry])=>entry.isIntersecting?start():stop(),{threshold:0.05}); observer.observe(particleHero); start();
 })();
+
+/* ── 3D POINTER DEPTH ── */
+(function(){
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
+  const fine=window.matchMedia('(pointer:fine)');
+  if(reduce.matches||!fine.matches)return;
+  const root=document.documentElement; let raf=0,px=50,py=50;
+  window.addEventListener('pointermove',e=>{
+    px=e.clientX/window.innerWidth*100; py=e.clientY/window.innerHeight*100;
+    if(!raf)raf=requestAnimationFrame(()=>{root.style.setProperty('--pointer-x',px+'%');root.style.setProperty('--pointer-y',py+'%');raf=0;});
+  },{passive:true});
+  const tiltSelectors='[data-tilt]';
+  function attach(card){
+    if(card.dataset.tiltReady)return; card.dataset.tiltReady='1';
+    card.addEventListener('pointermove',e=>{
+      const r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+      card.style.setProperty('--rx',((.5-y)*7).toFixed(2)+'deg'); card.style.setProperty('--ry',((x-.5)*7).toFixed(2)+'deg');
+      card.style.setProperty('--gx',(x*100).toFixed(1)+'%'); card.style.setProperty('--gy',(y*100).toFixed(1)+'%');
+    },{passive:true});
+    card.addEventListener('pointerleave',()=>{card.style.setProperty('--rx','0deg');card.style.setProperty('--ry','0deg');card.style.setProperty('--gx','50%');card.style.setProperty('--gy','50%')},{passive:true});
+  }
+  function addTilt(){
+    document.querySelectorAll('.hero-card,.svc-card,.b2b-card,.price-card,.cert-card,.testi-card,.gc-card,.emirate-card,.contact-method,.contact-method-card,.contact-step,.service-detail-card,.client-card').forEach(card=>{card.setAttribute('data-tilt','');attach(card);});
+  }
+  addTilt();
+  const hero=document.querySelector('.hero-section,.contact-hero,.error-hero,.page-hero');
+  if(hero)hero.addEventListener('pointermove',e=>{const r=hero.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;hero.style.setProperty('--hero-rx',((.5-y)*2).toFixed(2)+'deg');hero.style.setProperty('--hero-ry',((x-.5)*2).toFixed(2)+'deg')},{passive:true});
+})();
 /* ── MODAL ── */
 let selSvc='';
 let lastFocusedElement=null;

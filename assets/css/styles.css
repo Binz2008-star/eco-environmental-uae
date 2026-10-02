@@ -386,3 +386,19 @@ body:not(.emirate-page) .sec:not(#hero){content-visibility:auto;contain-intrinsi
 @media(min-width:480px){.recognition-inner{grid-template-columns:110px 1fr}.recognition-photo{height:145px}}
 /* Professional SVG icon system — replaces platform-dependent emoji rendering */
 .icon-sprite{position:absolute;width:0;height:0;overflow:hidden}.ui-icon{display:inline-block;width:1.15em;height:1.15em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;vertical-align:-.18em;flex-shrink:0}.svc-icon-wrap .ui-icon{width:1.35em;height:1.35em}.cert-icon .ui-icon,.cert-icon-box .ui-icon{width:1.2em;height:1.2em}.cov-item-icon .ui-icon{width:1.25em;height:1.25em}.indicator-icon .ui-icon{width:1.15em;height:1.15em;color:var(--teal)}.proc-icon .ui-icon{width:1.35em;height:1.35em}.gc-img>.ui-icon{width:3.2rem;height:3.2rem;color:var(--teal)}.gc-stat-val .ui-icon{width:1.1rem;height:1.1rem;color:var(--teal)}.cm-icon-box .ui-icon,.s-call .ui-icon{width:1.1em;height:1.1em}.m-svc .ui-icon{width:1.05em;height:1.05em;color:var(--teal);margin-right:.35rem}.recognition-card .ui-icon{width:1em;height:1em}
+
+/* ── 3D depth layer: pointer-safe, GPU-friendly, reduced-motion aware ── */
+:root{--pointer-x:50%;--pointer-y:50%}
+body:not(.light-mode)::after{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(500px circle at var(--pointer-x) var(--pointer-y),rgba(0,212,184,.075),transparent 62%);opacity:.8;transition:opacity .35s ease}
+.hero-section,.contact-hero,.error-hero,.page-hero{isolation:isolate}
+.hero-section::after,.contact-hero::after,.error-hero::after,.page-hero::after{content:'';position:absolute;inset:8% 4%;z-index:-1;border:1px solid rgba(0,212,184,.08);border-radius:40% 60% 55% 45%;transform:perspective(900px) rotateX(var(--hero-rx,0deg)) rotateY(var(--hero-ry,0deg));box-shadow:inset 0 0 80px rgba(0,212,184,.035),0 0 80px rgba(0,212,184,.035);pointer-events:none;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+[data-tilt]{--rx:0deg;--ry:0deg;--tz:0px;--gx:50%;--gy:50%;transform:perspective(900px) rotateX(var(--rx)) rotateY(var(--ry)) translateZ(var(--tz));transform-style:preserve-3d;will-change:transform;transition:transform .45s cubic-bezier(.2,.7,.2,1),border-color .3s,background .3s}
+[data-tilt]::before{content:'';position:absolute;inset:0;background:radial-gradient(220px circle at var(--gx) var(--gy),rgba(0,212,184,.16),transparent 68%);opacity:0;pointer-events:none;transition:opacity .35s}
+[data-tilt]:hover{--tz:8px;transition-duration:.12s}
+[data-tilt]:hover::before{opacity:1}
+[data-tilt]>*{transform:translateZ(10px)}
+.svc-card[data-tilt],.hero-card[data-tilt],.b2b-card[data-tilt],.price-card[data-tilt],.cert-card[data-tilt],.testi-card[data-tilt],.gc-card[data-tilt],.emirate-card[data-tilt],.contact-method[data-tilt],.contact-method-card[data-tilt],.contact-step[data-tilt],.service-detail-card[data-tilt],.client-card[data-tilt]{overflow:hidden}
+.about-img-main,.about-img-secondary,.recognition-photo,.service-visual,.client-logo-box{transform-style:preserve-3d;transition:transform .55s cubic-bezier(.2,.7,.2,1);will-change:transform}
+.about-img-main:hover,.about-img-secondary:hover,.recognition-photo:hover,.service-visual:hover,.client-logo-box:hover{transform:perspective(900px) rotateX(1deg) rotateY(-2deg) translateZ(5px)}
+@media(max-width:700px){body:not(.light-mode)::after{display:none}[data-tilt]{transform:none!important;will-change:auto}[data-tilt]>*{transform:none}.hero-section::after,.contact-hero::after,.error-hero::after,.page-hero::after{inset:12% 0}}
+@media(prefers-reduced-motion:reduce){body::after,.hero-section::after,.contact-hero::after,.error-hero::after,.page-hero::after{display:none}[data-tilt],[data-tilt]>*{transform:none!important;transition:none!important;will-change:auto}.about-img-main:hover,.about-img-secondary:hover,.recognition-photo:hover,.service-visual:hover,.client-logo-box:hover{transform:none}}
