@@ -309,12 +309,12 @@ document.querySelectorAll('.indicator-item').forEach(btn=>btn.addEventListener('
 const ecoInternalOriginals=[];
 function ecoText(sel, ar, html=false){
   document.querySelectorAll(sel).forEach((el,i)=>{
-    if(!ecoInternalOriginals.some(x=>x.el===el))ecoInternalOriginals.push({el,en:html?el.innerHTML:el.textContent});
+    if(!ecoInternalOriginals.some(x=>x.el===el))ecoInternalOriginals.push({el,en:html?el.innerHTML:el.textContent,html});
     const v=Array.isArray(ar)?(ar[i]??ar[ar.length-1]):ar;
     if(html)el.innerHTML=v; else el.textContent=v;
   });
 }
-function ecoRestore(){ecoInternalOriginals.forEach(x=>x.el[x.html?'innerHTML':'textContent']=x.en)}
+function ecoRestore(){ecoInternalOriginals.forEach(x=>{if(x.html)x.el.innerHTML=x.en;else x.el.textContent=x.en})}
 function localizeCommon(){
   ecoText('.nav-links a',['عن ECO','الخدمات','عملاؤنا','نطاق التغطية','اطلب عرضًا']);
   ecoText('.drawer .dl',['عن ECO','الخدمات','عملاؤنا','نطاق التغطية','اتصل بنا']);
