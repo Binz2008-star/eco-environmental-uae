@@ -412,3 +412,16 @@ body:not(.light-mode)::after{content:'';position:fixed;inset:0;z-index:-1;pointe
 @media (pointer:coarse) and (max-width:700px){
   [data-tilt].touch-depth{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.18)}
 }
+
+/* ── Smartphone touch micro-interactions: short, subtle, scroll-safe ── */
+@media (pointer:coarse) and (max-width:700px){
+  [data-tilt]{touch-action:pan-y;transition:transform .22s ease,box-shadow .22s ease}
+  [data-tilt].touch-depth{transform:translateY(-2px) scale(.995);box-shadow:0 10px 24px rgba(0,0,0,.18),0 0 0 1px rgba(0,212,184,.12)}
+  [data-tilt].touch-depth::before{opacity:.65}
+  .btn-primary:active,.btn-ghost:active,.btn-outline:active,.lang-btn:active,.hbg:active,#robin-btn:active{transform:scale(.97);transition:transform .12s ease}
+}
+@media (pointer:coarse) and (max-width:700px) and (prefers-reduced-motion:reduce){
+  [data-tilt].touch-depth{transform:none;box-shadow:none}
+  [data-tilt].touch-depth::before{opacity:0}
+  .btn-primary:active,.btn-ghost:active,.btn-outline:active,.lang-btn:active,.hbg:active,#robin-btn:active{transform:none}
+}
