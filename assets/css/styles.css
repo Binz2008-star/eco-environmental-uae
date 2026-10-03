@@ -402,3 +402,13 @@ body:not(.light-mode)::after{content:'';position:fixed;inset:0;z-index:-1;pointe
 .about-img-main:hover,.about-img-secondary:hover,.recognition-photo:hover,.service-visual:hover,.client-logo-box:hover{transform:perspective(900px) rotateX(1deg) rotateY(-2deg) translateZ(5px)}
 @media(max-width:700px){body:not(.light-mode)::after{display:none}[data-tilt]{transform:none!important;will-change:auto}[data-tilt]>*{transform:none}.hero-section::after,.contact-hero::after,.error-hero::after,.page-hero::after{inset:12% 0}}
 @media(prefers-reduced-motion:reduce){body::after,.hero-section::after,.contact-hero::after,.error-hero::after,.page-hero::after{display:none}[data-tilt],[data-tilt]>*{transform:none!important;transition:none!important;will-change:auto}.about-img-main:hover,.about-img-secondary:hover,.recognition-photo:hover,.service-visual:hover,.client-logo-box:hover{transform:none}}
+
+/* ── Tablet touch depth: tactile feedback without blocking page scroll ── */
+@media (pointer:coarse) and (min-width:701px){
+  [data-tilt]{--rx:var(--touch-rx,0deg);--ry:var(--touch-ry,0deg);--tz:var(--touch-z,0px);transition:transform .42s cubic-bezier(.2,.7,.2,1),box-shadow .42s ease}
+  [data-tilt].touch-depth{--touch-z:7px;box-shadow:0 16px 34px rgba(0,0,0,.22),0 0 0 1px rgba(0,212,184,.14)}
+  [data-tilt].touch-depth::before{opacity:1}
+}
+@media (pointer:coarse) and (max-width:700px){
+  [data-tilt].touch-depth{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.18)}
+}

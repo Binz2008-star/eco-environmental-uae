@@ -74,6 +74,22 @@ if(heroSection)counterObs.observe(heroSection);
 (function(){
   const reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
   const fine=window.matchMedia('(pointer:fine)');
+  const coarse=window.matchMedia('(pointer:coarse)');
+  const tablet=coarse.matches && window.innerWidth>=701;
+  function addTouchDepth(){
+    document.querySelectorAll('.hero-card,.svc-card,.b2b-card,.price-card,.cert-card,.testi-card,.gc-card,.emirate-card,.contact-method,.contact-method-card,.contact-step,.service-detail-card,.client-card').forEach(card=>{
+      card.setAttribute('data-tilt','');
+      card.addEventListener('pointerdown',e=>{
+        const r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+        card.style.setProperty('--touch-rx',((.5-y)*(tablet?4:2)).toFixed(2)+'deg');
+        card.style.setProperty('--touch-ry',((x-.5)*(tablet?4:2)).toFixed(2)+'deg');
+        card.classList.add('touch-depth');
+      },{passive:true});
+      const release=()=>{card.classList.remove('touch-depth');card.style.setProperty('--touch-rx','0deg');card.style.setProperty('--touch-ry','0deg')};
+      card.addEventListener('pointerup',release,{passive:true}); card.addEventListener('pointercancel',release,{passive:true}); card.addEventListener('pointerleave',release,{passive:true});
+    });
+  }
+  if(coarse){addTouchDepth();return;}
   if(reduce.matches||!fine.matches)return;
   const root=document.documentElement; let raf=0,px=50,py=50;
   window.addEventListener('pointermove',e=>{
