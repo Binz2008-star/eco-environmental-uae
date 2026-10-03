@@ -196,7 +196,7 @@ function toggleLang(){
   setLang('.faq-q',q.map(x=>x+' +'),null); setLang('.faq-a p',a,null);
   try{localStorage.setItem('eco-lang',isAR?'ar':'en')}catch(e){}
 }
-try{if(localStorage.getItem('eco-lang')==='ar')toggleLang()}catch(e){}
+try{if(document.getElementById('langBtn') && localStorage.getItem('eco-lang')==='ar')toggleLang()}catch(e){}
 /* ── WA FORM ── */
 function sendWA(){
   const name=document.getElementById('wName').value.trim();
