@@ -438,3 +438,18 @@ html[dir="rtl"] .faq-q{text-align:right}
 html[dir="rtl"] .faq-icon{margin-right:auto;margin-left:0}
 html[dir="rtl"] .form-sub,html[dir="rtl"] .field-error{display:block;text-align:right}
 html[dir="rtl"] .price-note{text-align:center}
+
+/* Site-wide Arabic and RTL support */
+html[dir="rtl"] body{font-family:Tahoma,"Segoe UI",Arial,sans-serif}
+html[dir="rtl"] main,html[dir="rtl"] footer,html[dir="rtl"] .detail-nav{direction:rtl}
+html[dir="rtl"] .nav-links,html[dir="rtl"] .drawer ul,html[dir="rtl"] .detail-nav nav{direction:rtl}
+html[dir="rtl"] .nav-links a,html[dir="rtl"] .drawer a,html[dir="rtl"] .detail-nav a{text-align:right}
+html[dir="rtl"] .hero-text,html[dir="rtl"] .about-hero-inner,html[dir="rtl"] .services-hero-inner,html[dir="rtl"] .clients-hero-inner,html[dir="rtl"] .contact-hero-inner,html[dir="rtl"] .detail-wrap,html[dir="rtl"] .error-copy{text-align:right}
+html[dir="rtl"] .footer-grid,html[dir="rtl"] .contact-layout,html[dir="rtl"] .services-heading,html[dir="rtl"] .about-section-heading{text-align:right}
+html[dir="rtl"] .btn-primary,html[dir="rtl"] .btn-secondary,html[dir="rtl"] .detail-actions{direction:rtl}
+html[dir="rtl"] .detail-nav-cta{margin-left:0;margin-right:.5rem}
+html[dir="rtl"] .breadcrumb{display:inline-flex;direction:rtl}
+html[dir="rtl"] input,html[dir="rtl"] textarea,html[dir="rtl"] select{direction:rtl;text-align:right}
+html[dir="rtl"] .contact-method-card b{transform:scaleX(-1)}
+html[dir="rtl"] .service-arrow,html[dir="rtl"] .error-actions a::after{transform:scaleX(-1)}
+html[dir="rtl"] .sticky-cta{direction:rtl}
