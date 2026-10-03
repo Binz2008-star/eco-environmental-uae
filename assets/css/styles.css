@@ -425,3 +425,16 @@ body:not(.light-mode)::after{content:'';position:fixed;inset:0;z-index:-1;pointe
   [data-tilt].touch-depth::before{opacity:0}
   .btn-primary:active,.btn-ghost:active,.btn-outline:active,.lang-btn:active,.hbg:active,#robin-btn:active{transform:none}
 }
+
+/* Arabic UI polish */
+html[dir="rtl"] body,.arabic-ui{font-family:Tahoma,"Segoe UI",Arial,sans-serif}
+html[dir="rtl"] .hero-text,html[dir="rtl"] .sec .wrap,html[dir="rtl"] .wa-form,html[dir="rtl"] .footer-grid{text-align:right}
+html[dir="rtl"] .nav-links,html[dir="rtl"] .drawer ul{direction:rtl}
+html[dir="rtl"] .hero-btns,html[dir="rtl"] .sticky-cta{direction:rtl}
+html[dir="rtl"] .svc-arrow{right:auto;left:1.2rem;transform:scaleX(-1)}
+html[dir="rtl"] .map-detail-link{margin-left:0;margin-right:auto}
+html[dir="rtl"] .indicator-item:hover,html[dir="rtl"] .indicator-item.active{transform:translateX(-3px)}
+html[dir="rtl"] .faq-q{text-align:right}
+html[dir="rtl"] .faq-icon{margin-right:auto;margin-left:0}
+html[dir="rtl"] .form-sub,html[dir="rtl"] .field-error{display:block;text-align:right}
+html[dir="rtl"] .price-note{text-align:center}
