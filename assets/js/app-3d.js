@@ -74,6 +74,7 @@ if(heroSection)counterObs.observe(heroSection);
 (function(){
   const reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
   const fine=window.matchMedia('(pointer:fine)');
+  if(reduce.matches)return;
   const coarse=window.matchMedia('(pointer:coarse)');
   const tablet=coarse.matches && window.innerWidth>=701;
   function addTouchDepth(){
@@ -90,7 +91,7 @@ if(heroSection)counterObs.observe(heroSection);
     });
   }
   if(coarse){addTouchDepth();return;}
-  if(reduce.matches||!fine.matches)return;
+  if(!fine.matches)return;
   const root=document.documentElement; let raf=0,px=50,py=50;
   window.addEventListener('pointermove',e=>{
     px=e.clientX/window.innerWidth*100; py=e.clientY/window.innerHeight*100;
