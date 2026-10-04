@@ -427,3 +427,33 @@ try{if(document.getElementById('langBtn')&&localStorage.getItem('eco-lang')==='a
   }
   window.ecoSound={enable:arm,mute:()=>{if(master)master.gain.setTargetAtTime(0,audio.currentTime,.03)},unmute:()=>{if(master)master.gain.setTargetAtTime(.045,audio.currentTime,.03)}};
 })();
+/* ── LAYERED 3D PARALLAX DEPTH ── */
+(function(){
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine=matchMedia('(pointer:fine)').matches;
+  const coarse=matchMedia('(pointer:coarse)').matches;
+  if(reduce)return;
+  const cards=document.querySelectorAll('.hero-card,.service-detail-card,.client-card,.contact-method-card,.detail-highlight,.value-grid article,.emirate-card');
+  const hero=document.querySelector('.hero-section,.contact-hero,.page-hero,.error-hero');
+  function setLayer(el,depth){el.classList.add('parallax-layer');el.style.setProperty('--parallax-depth',depth)}
+  cards.forEach(card=>{
+    card.style.setProperty('--parallax-x','0px');card.style.setProperty('--parallax-y','0px');
+    const children=[...card.children].filter(el=>!el.classList.contains('motion-line'));
+    children.forEach((el,i)=>setLayer(el,(i%3+1)*.65));
+    const reset=()=>{card.style.setProperty('--parallax-x','0px');card.style.setProperty('--parallax-y','0px');card.classList.remove('parallax-active')};
+    if(fine){
+      card.addEventListener('pointermove',e=>{const r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;card.style.setProperty('--parallax-x',`${(-x*12).toFixed(2)}px`);card.style.setProperty('--parallax-y',`${(-y*12).toFixed(2)}px`);card.classList.add('parallax-active')},{passive:true});
+      card.addEventListener('pointerleave',reset,{passive:true});
+    }else if(coarse){
+      card.addEventListener('pointerdown',e=>{const r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;card.style.setProperty('--parallax-x',`${(-x*5).toFixed(2)}px`);card.style.setProperty('--parallax-y',`${(-y*5).toFixed(2)}px`);card.classList.add('parallax-active')},{passive:true});
+      card.addEventListener('pointerup',reset,{passive:true});card.addEventListener('pointercancel',reset,{passive:true});
+    }
+  });
+  if(hero&&fine){
+    const layers=[hero.querySelector('.hero-text'),hero.querySelector('.hero-cards'),hero.querySelector('.contact-hero-inner'),hero.querySelector('.page-hero-inner'),hero.querySelector('.error-inner')].filter(Boolean);
+    layers.forEach((el,i)=>setLayer(el,(i+1)*.7));
+    let raf=0,x=0,y=0;
+    hero.addEventListener('pointermove',e=>{const r=hero.getBoundingClientRect();x=(e.clientX-r.left)/r.width-.5;y=(e.clientY-r.top)/r.height-.5;if(!raf)raf=requestAnimationFrame(()=>{hero.style.setProperty('--scene-x',`${x*18}px`);hero.style.setProperty('--scene-y',`${y*12}px`);raf=0})},{passive:true});
+    hero.addEventListener('pointerleave',()=>{hero.style.setProperty('--scene-x','0px');hero.style.setProperty('--scene-y','0px')},{passive:true});
+  }
+})();

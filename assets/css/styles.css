@@ -559,3 +559,10 @@ body.light-mode .motion-orb{mix-blend-mode:multiply;background:radial-gradient(c
 @keyframes ecoDots{0%{opacity:.2}50%{opacity:1}100%{opacity:.2}}
 @media(max-width:700px){.page-transition__status{bottom:8%;font-size:.56rem}.page-transition__logo{font-size:4.2rem}.page-transition__scan{animation-duration:1.35s}}
 @media(prefers-reduced-motion:reduce){.page-transition{display:none!important}}
+/* ── Layered 3D parallax depth ── */
+.parallax-layer{--parallax-depth:1;transform:translate3d(calc(var(--parallax-x,0px)*var(--parallax-depth)),calc(var(--parallax-y,0px)*var(--parallax-depth)),calc(var(--parallax-depth)*5px));transform-style:preserve-3d;will-change:transform;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.parallax-active>.parallax-layer{transition-duration:.08s}
+.hero-section>.hero-inner,.contact-hero>.contact-hero-inner,.page-hero>.page-hero-inner,.error-hero>.error-inner{transform:translate3d(var(--scene-x,0px),var(--scene-y,0px),0);transition:transform .7s cubic-bezier(.2,.7,.2,1);will-change:transform}
+.parallax-layer img,.parallax-layer svg{transform:translateZ(10px);backface-visibility:hidden}
+@media(max-width:700px){.parallax-layer{transform:translate3d(calc(var(--parallax-x,0px)*var(--parallax-depth)),calc(var(--parallax-y,0px)*var(--parallax-depth)),0);transition-duration:.25s}.hero-section>.hero-inner,.contact-hero>.contact-hero-inner,.page-hero>.page-hero-inner,.error-hero>.error-inner{transform:none;transition:none}.parallax-layer img,.parallax-layer svg{transform:none}}
+@media(prefers-reduced-motion:reduce){.parallax-layer,.hero-section>.hero-inner,.contact-hero>.contact-hero-inner,.page-hero>.page-hero-inner,.error-hero>.error-inner{transform:none!important;transition:none!important;will-change:auto}}
