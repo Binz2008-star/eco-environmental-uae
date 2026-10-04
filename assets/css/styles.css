@@ -580,4 +580,4 @@ body.light-mode .motion-orb{mix-blend-mode:multiply;background:radial-gradient(c
 .eco-cursor.is-pressed .eco-cursor__ring{transform:scale(.82);border-color:#fff}
 body.has-custom-cursor,body.has-custom-cursor a,body.has-custom-cursor button,body.has-custom-cursor [data-tilt],body.has-custom-cursor .parallax-layer,body.has-custom-cursor canvas#pc{cursor:none}
 body.has-custom-cursor input,body.has-custom-cursor textarea,body.has-custom-cursor select{cursor:text}
-@media(pointer:coarse),prefers-reduced-motion:reduce{.eco-cursor{display:none!important}}
+@media (pointer: coarse), (prefers-reduced-motion: reduce){.eco-cursor{display:none!important}}
