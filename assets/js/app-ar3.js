@@ -410,3 +410,34 @@ try{if(document.getElementById('langBtn')&&localStorage.getItem('eco-lang')==='a
   document.querySelectorAll('a[href]').forEach(a=>{const href=a.getAttribute('href');if(!href||href.startsWith('#')||href.startsWith('http')||href.startsWith('tel:')||href.startsWith('mailto:')||a.target==='_blank')return;a.addEventListener('click',e=>{if(reduce)return;e.preventDefault();transition.classList.add('is-leaving');setTimeout(()=>location.href=href,420)})});
   try{document.querySelectorAll('[data-target]').forEach(el=>{if(!el.dataset.motionNumber){el.dataset.motionNumber='1';el.classList.add('motion-number')}})}catch(e){}
 })();
+/* ── SUBTLE INTERACTION SOUND SYSTEM ── */
+(function(){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const AudioAPI=window.AudioContext||window.webkitAudioContext; if(!AudioAPI)return;
+  let audio=null,master=null,armed=false,lastTone=0,lastParticle=0,lastX=-999,lastY=-999;
+  function arm(){
+    if(!audio){audio=new AudioAPI();master=audio.createGain();master.gain.value=.045;master.connect(audio.destination)}
+    if(audio.state==='suspended')audio.resume();armed=true;
+  }
+  function tone(kind){
+    if(!armed||!audio||audio.state!=='running')return;
+    const now=performance.now(); if(now-lastTone<55)return; lastTone=now;
+    const spec={hover:[520,650,.045,'sine'],click:[280,620,.11,'sine'],particle:[360,520,.075,'triangle'],toggle:[420,760,.13,'sine']}[kind]||[420,600,.08,'sine'];
+    const osc=audio.createOscillator(),gain=audio.createGain(),t=audio.currentTime;
+    osc.type=spec[3];osc.frequency.setValueAtTime(spec[0],t);osc.frequency.exponentialRampToValueAtTime(spec[1],t+spec[2]*.7);
+    gain.gain.setValueAtTime(.0001,t);gain.gain.exponentialRampToValueAtTime(.22,t+.008);gain.gain.exponentialRampToValueAtTime(.0001,t+spec[2]);osc.connect(gain);gain.connect(master);osc.start(t);osc.stop(t+spec[2]+.02);
+  }
+  const interactive=document.querySelectorAll('.btn-primary,.btn-secondary,.btn-wa,.nav-cta,.lang-btn,.theme-toggle,#robin-btn,.hbg,[data-motion-card],.indicator-item,.map-emirate');
+  interactive.forEach(el=>{
+    el.addEventListener('pointerdown',arm,{passive:true});
+    el.addEventListener('pointerenter',()=>tone('hover'),{passive:true});
+    el.addEventListener('click',()=>tone(el.matches('.theme-toggle,.lang-btn')?'toggle':'click'));
+  });
+  document.addEventListener('pointerdown',arm,{passive:true,once:true});
+  const hero=document.querySelector('.hero-section');
+  if(hero){
+    hero.addEventListener('pointerdown',e=>{arm();const r=hero.getBoundingClientRect();lastX=e.clientX-r.left;lastY=e.clientY-r.top;tone('particle')},{passive:true});
+    hero.addEventListener('pointermove',e=>{if(!armed)return;const r=hero.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,dx=x-lastX,dy=y-lastY; if(dx*dx+dy*dy>700&&performance.now()-lastParticle>180){lastParticle=performance.now();lastX=x;lastY=y;tone('particle')}},{passive:true});
+  }
+  window.ecoSound={enable:arm,mute:()=>{if(master)master.gain.setTargetAtTime(0,audio.currentTime,.03)},unmute:()=>{if(master)master.gain.setTargetAtTime(.045,audio.currentTime,.03)}};
+})();
