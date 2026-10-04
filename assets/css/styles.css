@@ -496,3 +496,6 @@ body.light-mode .map-emirate{fill:rgba(0,127,115,.13);stroke:rgba(0,127,115,.56)
 body.light-mode .map-emirate:hover,body.light-mode .map-emirate:focus,body.light-mode .map-emirate.active{fill:rgba(0,127,115,.56);stroke:#00665d}
 body.light-mode .focus-bar{background:rgba(16,42,67,.12)}
 body.light-mode .robin-tooltip{background:#102a43;color:#fff}
+/* Keep fixed navigation controls above the in-flow emergency notice */
+body #mainNav{z-index:120}
+body .drawer{z-index:119}
