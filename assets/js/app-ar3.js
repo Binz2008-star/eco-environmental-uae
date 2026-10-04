@@ -288,8 +288,8 @@ function selectEmirate(name){
   if(linkEl)linkEl.href='emirates/'+(mapSlugs[name]||'ajman')+'.html';
 }
 document.querySelectorAll('.map-emirate').forEach(el=>{
-  el.addEventListener('click',()=>{selectEmirate(el.dataset.emirate);window.location.href='emirates/'+mapSlugs[el.dataset.emirate]+'.html';});
-  el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selectEmirate(el.dataset.emirate);window.location.href='emirates/'+mapSlugs[el.dataset.emirate]+'.html';}});
+  el.addEventListener('click',()=>{selectEmirate(el.dataset.emirate);(window.ecoNavigate||((href)=>window.location.href=href))('emirates/'+mapSlugs[el.dataset.emirate]+'.html');});
+  el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selectEmirate(el.dataset.emirate);(window.ecoNavigate||((href)=>window.location.href=href))('emirates/'+mapSlugs[el.dataset.emirate]+'.html');}});
 });
 /* ── ENVIRONMENTAL INDICATOR SELECTOR ── */
 const indicatorDetails={
@@ -377,8 +377,20 @@ try{if(document.getElementById('langBtn')&&localStorage.getItem('eco-lang')==='a
     document.querySelectorAll('.btn-primary,.btn-secondary,.btn-wa,.nav-cta').forEach(btn=>{btn.addEventListener('pointermove',e=>{const r=btn.getBoundingClientRect();btn.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.05}px,${(e.clientY-r.top-r.height/2)*.05}px)`},{passive:true});btn.addEventListener('pointerleave',()=>btn.style.transform='')});
   }
   document.querySelectorAll('section').forEach(section=>{section.classList.add('motion-section');const line=document.createElement('i');line.className='motion-line';section.appendChild(line)});
-  const transition=document.createElement('div');transition.className='page-transition';document.body.appendChild(transition);
-  document.querySelectorAll('a[href]').forEach(a=>{const href=a.getAttribute('href');if(!href||href.startsWith('#')||href.startsWith('http')||href.startsWith('tel:')||href.startsWith('mailto:')||a.target==='_blank')return;a.addEventListener('click',e=>{if(reduce)return;e.preventDefault();transition.classList.add('is-leaving');setTimeout(()=>location.href=href,420)})});
+  const transition=document.createElement('div');
+  transition.className='page-transition';
+  transition.setAttribute('aria-hidden','true');
+  transition.innerHTML='<div class=page-transition__noise></div><div class=page-transition__scan></div><div class=page-transition__brand><span class=page-transition__logo>EC<span>O</span></span><span class=page-transition__rule></span><span class=page-transition__label>Environmental · UAE</span></div><div class=page-transition__status>Loading next view<span class=page-transition__dots>···</span></div><div class=page-transition__progress></div>';
+  document.body.appendChild(transition);
+  requestAnimationFrame(()=>transition.classList.add('is-ready'));
+  window.ecoNavigate=function(href){
+    if(!href)return;
+    if(reduce){location.href=href;return}
+    transition.classList.remove('is-entering');transition.classList.add('is-leaving');
+    setTimeout(()=>{location.href=href},560);
+  };
+  document.querySelectorAll('a[href]').forEach(a=>{const href=a.getAttribute('href');if(!href||href.startsWith('#')||href.startsWith('http')||href.startsWith('tel:')||href.startsWith('mailto:')||a.target==='_blank'||a.hasAttribute('download'))return;a.addEventListener('click',e=>{if(reduce)return;e.preventDefault();window.ecoNavigate(href)})});
+  window.addEventListener('pageshow',()=>{transition.classList.remove('is-leaving');transition.classList.add('is-entering');setTimeout(()=>transition.classList.remove('is-entering'),720)},{once:true});
   try{document.querySelectorAll('[data-target]').forEach(el=>{if(!el.dataset.motionNumber){el.dataset.motionNumber='1';el.classList.add('motion-number')}})}catch(e){}
 })();
 /* ── SUBTLE INTERACTION SOUND SYSTEM ── */
