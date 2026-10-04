@@ -352,3 +352,30 @@ function toggleLang(){
   ecoOriginalToggle();
 }
 try{if(document.getElementById('langBtn')&&localStorage.getItem('eco-lang')==='ar'&&!document.body.classList.contains('home-page'))toggleLang()}catch(e){}
+/* ── CINEMATIC MOTION SYSTEM ── */
+(function(){
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine=window.matchMedia('(pointer:fine)').matches;
+  document.documentElement.classList.add('motion-ready');
+  const revealables=document.querySelectorAll('main section,main article,.hero-card,.svc-card,.b2b-card,.client-card,.service-detail-card,.contact-method-card,.contact-step,.value-grid article,.performance-grid>div,.detail-highlight,.detail-service-grid li,.detail-benefits article,.map-detail,.indicator-item,.clients-note');
+  revealables.forEach((el,i)=>{el.classList.add('motion-reveal');el.style.setProperty('--motion-index',i%8);});
+  const reveal=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('motion-visible');reveal.unobserve(entry.target)}}),{threshold:.1,rootMargin:'0px 0px -8%'});
+  revealables.forEach(el=>reveal.observe(el));
+  document.querySelectorAll('.hero-card,.svc-card,.b2b-card,.client-card,.service-detail-card,.contact-method-card,.value-grid article,.detail-highlight').forEach(el=>el.setAttribute('data-motion-card',''));
+  if(!reduce&&fine){
+    const orb=document.createElement('div');orb.className='motion-orb';document.body.appendChild(orb);
+    let mx=innerWidth/2,my=innerHeight/2,ox=mx,oy=my,active=false;
+    window.addEventListener('pointermove',e=>{mx=e.clientX;my=e.clientY;active=true;orb.classList.add('motion-active')},{passive:true});
+    window.addEventListener('pointerleave',()=>{active=false;orb.classList.remove('motion-active')},{passive:true});
+    const follow=()=>{ox+=(mx-ox)*.12;oy+=(my-oy)*.12;orb.style.left=ox+'px';orb.style.top=oy+'px';requestAnimationFrame(follow)};follow();
+    document.querySelectorAll('[data-motion-card]').forEach(card=>{
+      card.addEventListener('pointermove',e=>{const r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;card.style.setProperty('--spot-x',(x*100)+'%');card.style.setProperty('--spot-y',(y*100)+'%');card.style.transform=`perspective(900px) rotateX(${(0.5-y)*5}deg) rotateY(${(x-0.5)*5}deg) translateY(-6px)`;card.classList.add('motion-hover')},{passive:true});
+      card.addEventListener('pointerleave',()=>{card.style.transform='';card.classList.remove('motion-hover')},{passive:true});
+    });
+    document.querySelectorAll('.btn-primary,.btn-secondary,.btn-wa,.nav-cta').forEach(btn=>{btn.addEventListener('pointermove',e=>{const r=btn.getBoundingClientRect();btn.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.05}px,${(e.clientY-r.top-r.height/2)*.05}px)`},{passive:true});btn.addEventListener('pointerleave',()=>btn.style.transform='')});
+  }
+  document.querySelectorAll('section').forEach(section=>{section.classList.add('motion-section');const line=document.createElement('i');line.className='motion-line';section.appendChild(line)});
+  const transition=document.createElement('div');transition.className='page-transition';document.body.appendChild(transition);
+  document.querySelectorAll('a[href]').forEach(a=>{const href=a.getAttribute('href');if(!href||href.startsWith('#')||href.startsWith('http')||href.startsWith('tel:')||href.startsWith('mailto:')||a.target==='_blank')return;a.addEventListener('click',e=>{if(reduce)return;e.preventDefault();transition.classList.add('is-leaving');setTimeout(()=>location.href=href,420)})});
+  try{document.querySelectorAll('[data-target]').forEach(el=>{if(!el.dataset.motionNumber){el.dataset.motionNumber='1';el.classList.add('motion-number')}})}catch(e){}
+})();
