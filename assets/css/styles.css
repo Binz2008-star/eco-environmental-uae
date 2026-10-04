@@ -530,3 +530,8 @@ body .drawer{z-index:119}
 @media(max-width:700px){.motion-orb{display:none}[data-motion-card]>*{transform:none}.motion-ready .motion-reveal{transform:translate3d(0,22px,0) scale(.99)}.motion-glow::before{filter:blur(18px);opacity:.3}}
 @media(prefers-reduced-motion:reduce){.motion-ready .motion-reveal,.motion-ready .motion-reveal-left,.motion-ready .motion-scale{opacity:1;transform:none;transition:none}.motion-orb,.motion-glow::before,.motion-float,.motion-pulse,.motion-number,.page-transition{display:none!important}[data-motion-card]{transform:none!important;transition:none!important}}
 body.light-mode .motion-orb{mix-blend-mode:multiply;background:radial-gradient(circle,rgba(0,127,115,.10),transparent 68%)}
+/* Advanced canvas field: keep interaction behind readable hero content */
+.hero-section{isolation:isolate}
+.hero-section canvas#pc{opacity:.62;mix-blend-mode:screen;filter:saturate(1.15)}
+@media(max-width:700px){.hero-section canvas#pc{opacity:.42;mix-blend-mode:normal}}
+@media(prefers-reduced-motion:reduce){.hero-section canvas#pc{display:none}}
