@@ -361,6 +361,7 @@ try{if(document.getElementById('langBtn')&&localStorage.getItem('eco-lang')==='a
   revealables.forEach((el,i)=>{el.classList.add('motion-reveal');el.style.setProperty('--motion-index',i%8);});
   const reveal=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('motion-visible');reveal.unobserve(entry.target)}}),{threshold:.1,rootMargin:'0px 0px -8%'});
   revealables.forEach(el=>reveal.observe(el));
+  document.querySelectorAll('#hero .motion-reveal,#hero .hero-card,#hero .hero-text').forEach(el=>el.classList.add('motion-visible'));
   document.querySelectorAll('.hero-card,.svc-card,.b2b-card,.client-card,.service-detail-card,.contact-method-card,.value-grid article,.detail-highlight').forEach(el=>el.setAttribute('data-motion-card',''));
   if(!reduce&&fine){
     const orb=document.createElement('div');orb.className='motion-orb';document.body.appendChild(orb);
