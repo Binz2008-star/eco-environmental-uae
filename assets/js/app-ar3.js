@@ -15,11 +15,11 @@ function loadChatbot(){
 }
 /* ── NAV ── */
 const nav=document.getElementById('mainNav');
-window.addEventListener('scroll',()=>nav.classList.toggle('sc',scrollY>55),{passive:true});
+if(nav)window.addEventListener('scroll',()=>nav.classList.toggle('sc',scrollY>55),{passive:true});
 /* ── HAMBURGER ── */
 const hbg=document.getElementById('hbg');
 const drawer=document.getElementById('drawer');
-hbg.addEventListener('click',()=>{
+if(hbg)hbg.addEventListener('click',()=>{
   const o=drawer.classList.toggle('o');
   hbg.classList.toggle('o',o);
   hbg.setAttribute('aria-expanded',o);
@@ -149,7 +149,7 @@ function sendModal(){
   let txt='Hello ECO Environmental,\n\nService: '+selSvc+'\nName: '+name+'\n\nPlease send me information and pricing.';
   setTimeout(()=>{window.open('https://wa.me/971522233989?text='+encodeURIComponent(txt),'_blank');closeModal();},1800);
 }
-document.getElementById('modalOverlay').addEventListener('click',function(e){if(e.target===this)closeModal();});
+const modalOverlay=document.getElementById('modalOverlay'); if(modalOverlay)modalOverlay.addEventListener('click',function(e){if(e.target===this)closeModal();});
 /* ── ARABIC LOCALIZATION ── */
 let isAR=false;
 const arOriginals=[];
@@ -197,7 +197,7 @@ function toggleLang(){
   setLang('.faq-q',q.map(x=>x+' +'),null); setLang('.faq-a p',a,null);
   try{localStorage.setItem('eco-lang',isAR?'ar':'en')}catch(e){}
 }
-try{if(document.getElementById('langBtn') && localStorage.getItem('eco-lang')==='ar')toggleLang()}catch(e){}
+/* Arabic persistence is initialized by the route-aware layer below. */
 /* ── WA FORM ── */
 function sendWA(){
   const name=document.getElementById('wName').value.trim();
@@ -225,13 +225,13 @@ function sendWA(){
   window.open('https://wa.me/971522233989?text='+encodeURIComponent(txt),'_blank');
 }
 /* ── INPUT ENABLE ── */
-document.getElementById('r-inp').addEventListener('input',function(){document.getElementById('r-send').disabled=!this.value.trim();});
+const rInp=document.getElementById('r-inp'), rSend=document.getElementById('r-send'); if(rInp&&rSend)rInp.addEventListener('input',function(){rSend.disabled=!this.value.trim();});
 /* ── PAGE PROGRESS ── */
 const progBar=document.getElementById('page-progress');
-window.addEventListener('scroll',()=>{const pct=(scrollY/(document.body.scrollHeight-innerHeight))*100;progBar.style.width=Math.min(pct,100)+'%';},{passive:true});
+if(progBar)window.addEventListener('scroll',()=>{const pct=(scrollY/(document.body.scrollHeight-innerHeight))*100;progBar.style.width=Math.min(pct,100)+'%';},{passive:true});
 /* ── BACK TO TOP ── */
 const btt=document.getElementById('btt');
-window.addEventListener('scroll',()=>{btt.classList.toggle('show',scrollY>400);},{passive:true});
+if(btt)window.addEventListener('scroll',()=>{btt.classList.toggle('show',scrollY>400);},{passive:true});
 /* ── PROGRESS BARS ── */
 const progObs=new IntersectionObserver(entries=>{
   if(entries[0].isIntersecting){document.querySelectorAll('.prog-bar').forEach(bar=>{bar.style.width=bar.dataset.width+'%';});progObs.disconnect();}
@@ -259,8 +259,8 @@ function toggleTheme(){
   isLight=!isLight;
   document.body.classList.toggle('light-mode',isLight);
   const theme=document.getElementById('themeToggle');
-  theme.classList.toggle('light-mode',isLight);
-  theme.setAttribute('aria-pressed',String(isLight));
+  if(theme){theme.classList.toggle('light-mode',isLight);
+  theme.setAttribute('aria-pressed',String(isLight));}
   localStorage.setItem('eco-theme',isLight?'light':'dark');
 }
 if(localStorage.getItem('eco-theme')==='light')toggleTheme();
