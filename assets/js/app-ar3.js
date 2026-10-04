@@ -457,3 +457,24 @@ try{if(document.getElementById('langBtn')&&localStorage.getItem('eco-lang')==='a
     hero.addEventListener('pointerleave',()=>{hero.style.setProperty('--scene-x','0px');hero.style.setProperty('--scene-y','0px')},{passive:true});
   }
 })();
+/* ── INTERACTIVE CUSTOM CURSOR ── */
+(function(){
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine=matchMedia('(pointer:fine)').matches;
+  if(reduce||!fine)return;
+  const cursor=document.createElement('div');
+  cursor.className='eco-cursor';cursor.setAttribute('aria-hidden','true');
+  cursor.innerHTML='<span class="eco-cursor__dot"></span><span class="eco-cursor__ring"></span><span class="eco-cursor__label"></span>';
+  document.body.appendChild(cursor);document.body.classList.add('has-custom-cursor');
+  const dot=cursor.querySelector('.eco-cursor__dot'),ring=cursor.querySelector('.eco-cursor__ring'),label=cursor.querySelector('.eco-cursor__label');
+  let x=-100,y=-100,tx=x,ty=y,raf=0,visible=false;
+  function render(){tx+=(x-tx)*.22;ty+=(y-ty)*.22;cursor.style.transform=`translate3d(${tx}px,${ty}px,0)`;raf=requestAnimationFrame(render)}
+  render();
+  function setState(name,text){cursor.dataset.state=name||'';label.textContent=text||''}
+  document.addEventListener('pointermove',e=>{x=e.clientX;y=e.clientY;if(!visible){visible=true;cursor.classList.add('is-visible')}},{passive:true});
+  document.addEventListener('pointerover',e=>{const target=e.target.closest('a,button,[data-tilt],.parallax-layer,canvas#pc');if(!target)return;if(target.matches('canvas#pc'))setState('particle','FIELD');else if(target.matches('button'))setState('button','OPEN');else if(target.matches('[data-tilt],.parallax-layer'))setState('depth','3D');else setState('link','VIEW')},{passive:true});
+  document.addEventListener('pointerout',e=>{if(!e.relatedTarget||!e.target.closest('a,button,[data-tilt],.parallax-layer,canvas#pc'))setState('','')},{passive:true});
+  document.addEventListener('pointerdown',()=>{cursor.classList.add('is-pressed')},{passive:true});
+  document.addEventListener('pointerup',()=>{cursor.classList.remove('is-pressed')},{passive:true});
+  document.addEventListener('pointerleave',()=>{cursor.classList.remove('is-visible')},{passive:true});
+})();
