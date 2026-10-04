@@ -382,7 +382,10 @@ try{if(document.getElementById('langBtn')&&localStorage.getItem('eco-lang')==='a
   transition.setAttribute('aria-hidden','true');
   transition.innerHTML='<div class=page-transition__noise></div><div class=page-transition__scan></div><div class=page-transition__brand><span class=page-transition__logo>EC<span>O</span></span><span class=page-transition__rule></span><span class=page-transition__label>Environmental · UAE</span></div><div class=page-transition__status>Loading next view<span class=page-transition__dots>···</span></div><div class=page-transition__progress></div>';
   document.body.appendChild(transition);
-  requestAnimationFrame(()=>transition.classList.add('is-ready'));
+  requestAnimationFrame(()=>{
+    transition.classList.add('is-ready','is-entering');
+    setTimeout(()=>transition.classList.remove('is-entering'),760);
+  });
   window.ecoNavigate=function(href){
     if(!href)return;
     if(reduce){location.href=href;return}
