@@ -26,7 +26,15 @@ function dismissCookie(accepted){
     if(bar){bar.hidden=true;bar.style.display='none';}
     if(choice==='accepted')loadAds();
   } else {
-    const bar=document.getElementById('cookie');
-    if(bar){bar.hidden=false;bar.style.display='flex';}
+    const reveal=()=>{
+      const bar=document.getElementById('cookie');
+      if(bar){bar.hidden=false;bar.style.display='flex';}
+    };
+    // Consent is non-critical UI; keep it out of the first mobile paint/LCP window.
+    if('requestIdleCallback' in window){
+      requestIdleCallback(reveal,{timeout:5000});
+    }else{
+      setTimeout(reveal,4500);
+    }
   }
 })();
