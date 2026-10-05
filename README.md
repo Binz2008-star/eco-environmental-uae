@@ -214,3 +214,11 @@ open index.html
 
 *© 2026 ECO Environmental Protection Services LLC — Ajman, UAE*
 *General Manager: Robin Edwan · +971 52 223 3989 · robenedwan@gmail.com*
+
+
+## JavaScript loading architecture
+
+- `assets/js/app-core.js` contains navigation, forms, localization, theme controls, counters and map interactions.
+- `assets/js/app-effects.js` contains Canvas, parallax, sound, transitions and custom cursor effects. It is loaded after the first page load during idle time and is skipped when reduced motion is enabled.
+- `assets/js/chatbot.js` remains lazy-loaded only after the Robin AI button is activated.
+- Legacy bundles (`app.js`, `app-mobile.js`, `app-ar.js`, `app-ar2.js`, `app-3d.js`, `app-ar3.js`) were removed after confirming there are no page references.
