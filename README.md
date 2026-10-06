@@ -222,3 +222,5 @@ open index.html
 - `assets/js/app-effects.js` contains Canvas, parallax, sound, transitions and custom cursor effects. It is loaded after the first page load during idle time and is skipped when reduced motion is enabled.
 - `assets/js/chatbot.js` remains lazy-loaded only after the Robin AI button is activated.
 - Legacy bundles (`app.js`, `app-mobile.js`, `app-ar.js`, `app-ar2.js`, `app-3d.js`, `app-ar3.js`) were removed after confirming there are no page references.
+
+- Google Fonts are self-hosted under `assets/fonts/` and loaded asynchronously through `assets/css/fonts.css` to reduce third-party latency and improve privacy.
