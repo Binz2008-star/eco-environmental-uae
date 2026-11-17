@@ -10,6 +10,11 @@ export async function authorize(req:Request){
  }
  return user;
 }
-export async function body(req:Request){const text=await req.text();if(text.length>12000)throw new Error('INPUT');return JSON.parse(text)}
-export function failure(e:unknown){const code=e instanceof Error?e.message:'';return json({error:code==='AUTH'?'سجّل الدخول أولًا.':code==='RATE'?'طلبات كثيرة. حاول بعد دقيقة.':code==='ORIGIN'?'الطلب غير مسموح.':code==='INPUT'?'تحقق من البيانات المدخلة.':'تعذر تنفيذ العملية. حاول مجددًا.'},code==='AUTH'?401:code==='ORIGIN'?403:code==='RATE'?429:code==='INPUT'?400:500)}
+export async function body(req:Request):Promise<Record<string,unknown>>{
+ const text=await req.text();if(text.length>12000)throw new Error('INPUT');
+ let parsed:unknown;try{parsed=JSON.parse(text)}catch{throw new Error('INPUT')}
+ if(typeof parsed!=='object'||parsed===null||Array.isArray(parsed))throw new Error('INPUT');
+ return parsed as Record<string,unknown>
+}
+export function failure(e:unknown){const code=e instanceof Error?e.message:'';if(!['AUTH','RATE','ORIGIN','INPUT'].includes(code))console.error(JSON.stringify({level:'error',event:'api_unhandled'}));return json({error:code==='AUTH'?'سجّل الدخول أولًا.':code==='RATE'?'طلبات كثيرة. حاول بعد دقيقة.':code==='ORIGIN'?'الطلب غير مسموح.':code==='INPUT'?'تحقق من البيانات المدخلة.':'تعذر تنفيذ العملية. حاول مجددًا.'},code==='AUTH'?401:code==='ORIGIN'?403:code==='RATE'?429:code==='INPUT'?400:500)}
 export function str(v:unknown,min:number,max:number){if(typeof v!=='string'||v.trim().length<min||v.trim().length>max)throw new Error('INPUT');return v.trim()}

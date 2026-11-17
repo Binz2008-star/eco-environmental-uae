@@ -15,4 +15,5 @@ jobs:
           node-version: '24'
       - run: npm ci --no-audit --no-fund
       - run: node --experimental-strip-types --test tests/rules.test.ts
+      - run: npm run test:integration
       - run: npx tsc --noEmit

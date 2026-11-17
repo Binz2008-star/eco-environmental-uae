@@ -16,3 +16,10 @@ Runtime secrets: DATABASE_URL (limited role), ADMIN_EMAILS (comma-separated veri
 
 ## Remaining limitations
 Public access and complete authenticated user acceptance testing remain before customer launch. No provider portal, payment gateway, image uploads or email/SMS delivery. Dashboard has explicit display limits of 100 customer / 200 operator requests. Rate-limit row retention needs an operational cleanup policy before sustained usage. Retention and provider eligibility require business review.
+
+## Patch review — 2026-11-17
+Applied the supplied eco-collect-integration-harness.patch (85,828 bytes) with git am against 1aa2e311f7310f6a5c4addbbd78d94b673cdbef4. It changes six files and contains no wheel artifacts. Semantic comparison of package-lock.json found 63 added package paths, zero removed paths, and one existing version update: @types/estree 1.0.9 to 1.0.10. Most apparent deletions in the textual diff are reordered entries.
+
+Malformed JSON and non-object bodies now return 400. Follow-up review removed raw exception names/messages from structured logging because dependency errors can contain credentials or personal data; a regression test checks the fixed log payload. Integration tests now run in GitHub Actions. Local npm ci, four original tests, the supplied 17 integration tests, TypeScript and production build passed. These tests use embedded PGlite PostgreSQL with mocked identity and a Neon-compatible SQL adapter, not live Neon or platform authentication.
+
+Lint remains failing: seven errors and two warnings, including two explicit-any errors in the new test harness and five existing errors in client.tsx/layout.tsx. This is a development-branch update, not launch approval. No merge, deployment, Neon operation or access-setting change was performed. Live authentication, mobile/browser flows, concurrent request behavior and load remain unverified. The isolation test covers cross-user reading and cancellation but does not actually attempt cross-user quote acceptance despite its title; expand that case before launch. Existing stale quote display, non-JSON client responses and rate-limit retention remain follow-ups.
