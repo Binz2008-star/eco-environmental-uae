@@ -154,6 +154,34 @@ describe('admin cycle', () => {
   });
 });
 
+describe('stale quote and rate-limit retention', () => {
+  it('hides a withdrawn quote from the customer once the order returns to review', async () => {
+    await registered('c1');
+    const id = await createOrder('c1');
+    await adminCall({ id, status: 'reviewing' });
+    await adminCall({ id, status: 'quoted', amount: 100, quote_notes: 'ملاحظات كافية' });
+    asUser('c1');
+    expect((await read(await requests.GET(req('/api/requests', 'GET')))).body.requests[0].quote_fils).toBe(10000);
+    await adminCall({ id, status: 'reviewing' });
+    asUser('c1');
+    expect((await read(await requests.GET(req('/api/requests', 'GET')))).body.requests[0].quote_fils).toBeNull();
+    expect((await adminCall({ id, status: 'quoted', amount: 200, quote_notes: 'عرض معدّل للمشروع' })).status).toBe(200);
+    asUser('c1');
+    expect((await read(await requests.GET(req('/api/requests', 'GET')))).body.requests[0].quote_fils).toBe(20000);
+  });
+  it('purges only the caller\'s expired rate-limit rows', async () => {
+    const now = Math.floor(Date.now() / 60000);
+    const pg = state.pg!;
+    for (const [u, b] of [['u1', now - 100], ['u1', now - 11], ['u1', now - 5], ['u2', now - 100]] as const)
+      await pg.query('INSERT INTO eco_collect.rate_limits(user_id,bucket) VALUES($1,$2)', [u, b]);
+    asUser('u1');
+    expect((await account.POST(req('/api/account', 'POST', profile))).status).toBe(200);
+    const rows = (await pg.query<{ user_id: string; bucket: string }>('SELECT user_id,bucket FROM eco_collect.rate_limits ORDER BY user_id,bucket')).rows
+      .map((r) => `${r.user_id}:${Number(r.bucket) - now}`);
+    expect(rows).toEqual(['u1:-5', 'u1:0', 'u2:-100']);
+  });
+});
+
 describe('input robustness', () => {
   it('returns 400 (not 500) for malformed JSON', async () => {
     asUser('u1');

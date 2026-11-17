@@ -5,7 +5,7 @@ export async function authorize(req:Request){
  if(req.method!=='GET' && req.headers.get('origin')!==new URL(req.url).origin)throw new Error('ORIGIN');
  const user=await getChatGPTUser();if(!user)throw new Error('AUTH');
  if(req.method!=='GET'){
-  const sql=db();const result=await sql`INSERT INTO eco_collect.rate_limits(user_id,bucket) VALUES(${user.userId},${Math.floor(Date.now()/60000)}) ON CONFLICT(user_id,bucket) DO UPDATE SET count=eco_collect.rate_limits.count+1 RETURNING count`;
+  const sql=db(),bucket=Math.floor(Date.now()/60000);const result=await sql`WITH purged AS (DELETE FROM eco_collect.rate_limits WHERE user_id=${user.userId} AND bucket<${bucket-10}) INSERT INTO eco_collect.rate_limits(user_id,bucket) VALUES(${user.userId},${bucket}) ON CONFLICT(user_id,bucket) DO UPDATE SET count=eco_collect.rate_limits.count+1 RETURNING count`;
   if(result[0].count>20)throw new Error('RATE');
  }
  return user;
