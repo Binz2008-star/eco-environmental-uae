@@ -17,3 +17,4 @@ jobs:
       - run: node --experimental-strip-types --test tests/rules.test.ts
       - run: npm run test:integration
       - run: npx tsc --noEmit
+      - run: npm run lint

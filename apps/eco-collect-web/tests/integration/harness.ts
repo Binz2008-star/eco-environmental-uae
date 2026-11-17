@@ -2,6 +2,7 @@ import { PGlite } from '@electric-sql/pglite';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
+export type ApiBody = { id: string; error?: string; requests: Array<{ quote_fils: number | null; phone: string; name: string }> };
 export const ADMIN_EMAIL = 'admin@eco.test';
 export type TestUser = { userId: string; displayName: string; email: string; fullName: string | null };
 
@@ -30,7 +31,7 @@ export function neonLike() {
     if (!state.pg) throw new Error('db not initialised');
     const text = strings.reduce((acc, s, i) => acc + s + (i < values.length ? `$${i + 1}` : ''), '');
     const res = await state.pg.query(text, values as never[]);
-    return res.rows as Record<string, any>[];
+    return res.rows as Record<string, unknown>[];
   };
 }
 
@@ -41,6 +42,6 @@ export function req(path: string, method: 'GET' | 'POST', data?: unknown, origin
     body: data === undefined ? undefined : typeof data === 'string' ? data : JSON.stringify(data),
   });
 }
-export async function read(res: Response): Promise<{ status: number; body: any }> {
+export async function read(res: Response): Promise<{ status: number; body: ApiBody }> {
   return { status: res.status, body: await res.json() };
 }
